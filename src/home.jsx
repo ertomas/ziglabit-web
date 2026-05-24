@@ -41,7 +41,7 @@ function LiveTelemetry() {
   }[sev]);
 
   return (
-    <div style={{
+    <div className="rs-telemetry" style={{
       background: 'var(--navy)',
       color: '#fff',
       padding: 28,
@@ -83,7 +83,7 @@ function LiveTelemetry() {
         <div className="mono" style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 6 }}>
           OPERACIONES CRIPTOGRÁFICAS · ÚLT. 24H
         </div>
-        <div style={{
+        <div className="rs-tel-counter" style={{
           fontFamily: 'JetBrains Mono, monospace',
           fontSize: 38,
           fontWeight: 500,
@@ -95,7 +95,7 @@ function LiveTelemetry() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 18 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {events.map((e, i) => (
-            <div key={e.id} style={{
+            <div key={e.id} className="rs-tel-row" style={{
               display: 'grid',
               gridTemplateColumns: '60px 56px 1fr',
               gap: 10,
@@ -124,7 +124,7 @@ function LiveTelemetry() {
 
 function Hero() {
   return (
-    <section style={{
+    <section className="rs-section" style={{
       padding: '64px 0 96px',
       position: 'relative',
     }}>
@@ -143,7 +143,7 @@ function Hero() {
         </svg>
       </div>
 
-      <div className="container" style={{
+      <div className="container rs-split" style={{
         display: 'grid',
         gridTemplateColumns: '1.15fr 1fr',
         gap: 80,
@@ -156,7 +156,7 @@ function Hero() {
             <span>Ciberseguridad para infraestructura crítica</span>
           </div>
 
-          <h1 style={{
+          <h1 className="rs-h1" style={{
             fontSize: 72,
             lineHeight: 1.02,
             letterSpacing: '-0.035em',
@@ -187,7 +187,7 @@ function Hero() {
             Sistemas, software y servicios de integración para banca, procesadores de pago y FinTech. Defensa en profundidad construida sobre los principios de la runa Algiz: protección, fuerza y progreso.
           </p>
 
-          <div style={{ display: 'flex', gap: 14, marginBottom: 56 }}>
+          <div className="rs-btn-row" style={{ display: 'flex', gap: 14, marginBottom: 56 }}>
             <button className="btn btn-primary">
               Solicitar demo
               <Icon.ArrowRight size={14} />
@@ -243,7 +243,7 @@ function SectorStrip() {
       padding: '28px 0',
       background: 'var(--cream-2)',
     }}>
-      <div className="container" style={{
+      <div className="container rs-sector-strip" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -339,9 +339,9 @@ function SolutionsSection() {
   ];
 
   return (
-    <section id="solutions" style={{ padding: '120px 0', background: 'var(--cream)' }}>
+    <section id="solutions" className="rs-section" style={{ padding: '120px 0', background: 'var(--cream)' }}>
       <div className="container">
-        <div style={{
+        <div className="rs-section-head" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.4fr',
           gap: 80,
@@ -353,7 +353,7 @@ function SolutionsSection() {
               <span className="dot"></span>
               <span>Componentes · Algiz Platform</span>
             </div>
-            <h2 style={{
+            <h2 className="rs-h2" style={{
               fontSize: 52,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -378,7 +378,7 @@ function SolutionsSection() {
           </div>
         </div>
 
-        <div style={{
+        <div className="rs-cards-2" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 24,
@@ -551,7 +551,7 @@ function PlatformSection() {
   ];
 
   return (
-    <section id="platform" style={{
+    <section id="platform" className="rs-section" style={{
       background: 'var(--navy)',
       color: '#fff',
       padding: '120px 0',
@@ -568,7 +568,7 @@ function PlatformSection() {
       }} />
 
       <div className="container" style={{ position: 'relative' }}>
-        <div style={{
+        <div className="rs-section-head" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.3fr',
           gap: 80,
@@ -579,7 +579,7 @@ function PlatformSection() {
               <span className="dot"></span>
               <span style={{ color: 'rgba(255,255,255,0.7)' }}>La plataforma</span>
             </div>
-            <h2 style={{
+            <h2 className="rs-h2" style={{
               fontSize: 52,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -645,7 +645,7 @@ function PlatformSection() {
           </div>
 
           {/* Middle: 4 modules */}
-          <div style={{
+          <div className="rs-cards-4" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: 12,
@@ -678,7 +678,7 @@ function PlatformSection() {
           </div>
 
           {/* Connectors */}
-          <div style={{
+          <div className="rs-platform-connectors" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             height: 28,
@@ -691,7 +691,7 @@ function PlatformSection() {
           </div>
 
           {/* Bottom: HSM root of trust */}
-          <div style={{
+          <div className="rs-hsm-root" style={{
             border: '1px dashed rgba(0,209,178,0.55)',
             background: 'rgba(0,209,178,0.04)',
             padding: '22px 26px',
@@ -718,7 +718,7 @@ function PlatformSection() {
         </div>
 
         {/* What they actually share */}
-        <div style={{
+        <div className="rs-cards-3" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 1,
@@ -752,9 +752,9 @@ function PlatformSection() {
 
 function ResultsSection() {
   return (
-    <section style={{ padding: '120px 0', background: 'var(--cream)' }}>
+    <section className="rs-section" style={{ padding: '120px 0', background: 'var(--cream)' }}>
       <div className="container">
-        <div style={{
+        <div className="rs-split" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 80,
@@ -765,7 +765,7 @@ function ResultsSection() {
               <span className="dot"></span>
               <span>Resultados</span>
             </div>
-            <h2 style={{
+            <h2 className="rs-h2" style={{
               fontSize: 52,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -823,7 +823,7 @@ function ResultsSection() {
             </div>
           </div>
 
-          <div style={{
+          <div className="rs-stats-2x2" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 1,
@@ -867,9 +867,9 @@ function ResultsSection() {
 
 function CTASection() {
   return (
-    <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
+    <section className="rs-section" style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
       <div className="container">
-        <div style={{
+        <div className="rs-cta" style={{
           background: 'var(--navy)',
           color: '#fff',
           padding: '80px 64px',

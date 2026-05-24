@@ -1,0 +1,318 @@
+/* =========================================================================
+   Ziglabit — Responsive overrides
+   Aggressive !important to defeat the JSX inline styles that ship the desktop
+   layout. Hooks are `.rs-*` classes added to the relevant wrappers in JSX.
+   Breakpoints:
+     - 1024px → tablet ancho / laptop pequeña
+     -  900px → tablet vertical / mobile grande
+     -  760px → mobile
+     -  600px → mobile estrecho
+     -  480px → mobile XS
+   ========================================================================= */
+
+/* Horizontal scrollbar guard — clip both html and body so decorative SVG
+   watermarks that sit past the viewport don't create a horizontal scroll.
+   `clip` is preferred over `hidden` because it doesn't create a scroll
+   container (keeps `position: sticky` working on the TopNav). */
+html, body { overflow-x: clip; }
+
+/* ===== Container padding ===== */
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+}
+
+/* ===== Section vertical padding ===== */
+@media (max-width: 900px) {
+  .rs-section { padding-top: 72px !important; padding-bottom: 72px !important; }
+}
+@media (max-width: 600px) {
+  .rs-section { padding-top: 56px !important; padding-bottom: 56px !important; }
+}
+
+/* ===== Generic 2-col split (hero, etc.) → stack ===== */
+@media (max-width: 900px) {
+  .rs-split {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    align-items: stretch !important;
+  }
+}
+
+/* ===== Section header (title + intro side-by-side) → stack ===== */
+@media (max-width: 900px) {
+  .rs-section-head {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 40px !important;
+    align-items: start !important;
+  }
+}
+
+/* ===== Hero h1 ===== */
+@media (max-width: 900px) {
+  .rs-h1 { font-size: clamp(40px, 7vw, 56px) !important; }
+}
+@media (max-width: 600px) {
+  .rs-h1 { font-size: 40px !important; line-height: 1.05 !important; }
+}
+
+/* ===== Section h2 ===== */
+@media (max-width: 900px) {
+  .rs-h2 { font-size: clamp(32px, 5.5vw, 44px) !important; }
+}
+@media (max-width: 600px) {
+  .rs-h2 { font-size: 30px !important; line-height: 1.1 !important; }
+}
+
+/* ===== Cards 2-col → 1-col on mobile ===== */
+@media (max-width: 760px) {
+  .rs-cards-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .rs-cards-2 > * {
+    min-height: 0 !important;
+  }
+  .rs-cards-2 a,
+  .rs-cards-2 > div {
+    padding: 28px !important;
+  }
+}
+
+/* ===== Cards 3-col → 1-col on mobile (results stats 2x2 too) ===== */
+@media (max-width: 760px) {
+  .rs-cards-3 { grid-template-columns: 1fr !important; }
+}
+
+/* ===== Cards 4-col → 2-col on tablet, 1-col on mobile ===== */
+@media (max-width: 900px) {
+  .rs-cards-4 { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 520px) {
+  .rs-cards-4 { grid-template-columns: 1fr !important; }
+}
+
+/* ===== Stats 2x2 grid keeps 2x2 on mobile but shrinks numbers ===== */
+@media (max-width: 760px) {
+  .rs-stats-2x2 > div {
+    padding: 24px !important;
+    min-height: 150px !important;
+  }
+  .rs-stats-2x2 > div > div:first-child {
+    font-size: 40px !important;
+  }
+}
+@media (max-width: 420px) {
+  .rs-stats-2x2 { grid-template-columns: 1fr !important; }
+  .rs-stats-2x2 > div { min-height: 120px !important; }
+}
+
+/* ===== Sector strip ===== */
+@media (max-width: 760px) {
+  .rs-sector-strip {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .rs-sector-strip > div:last-child {
+    justify-content: flex-start !important;
+    gap: 20px 24px !important;
+  }
+}
+
+/* ===== CTA section grid ===== */
+@media (max-width: 900px) {
+  .rs-cta {
+    grid-template-columns: 1fr !important;
+    padding: 56px 40px !important;
+    gap: 32px !important;
+  }
+}
+@media (max-width: 600px) {
+  .rs-cta {
+    padding: 40px 24px !important;
+  }
+  .rs-cta h2 {
+    font-size: 30px !important;
+    line-height: 1.1 !important;
+  }
+}
+
+/* ===== Big stats / accents ===== */
+@media (max-width: 600px) {
+  .rs-big-counter { font-size: 32px !important; }
+  .rs-big-accent  { font-size: 48px !important; }
+  .rs-stat-grid-num { font-size: 32px !important; }
+}
+
+/* ===== Footer ===== */
+@media (max-width: 1024px) {
+  .rs-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 32px !important;
+    margin-bottom: 56px !important;
+  }
+  .rs-footer-grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 600px) {
+  .rs-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 400px) {
+  .rs-footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 700px) {
+  .rs-footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .rs-footer-bottom > div:last-child {
+    flex-wrap: wrap !important;
+    gap: 14px 20px !important;
+  }
+}
+
+/* ===== TopNav: hamburger ===== */
+.rs-nav-hamburger { display: none; }
+@media (max-width: 900px) {
+  .rs-nav-links, .rs-nav-auth { display: none !important; }
+  .rs-nav-hamburger { display: flex !important; }
+}
+
+/* ===== LiveTelemetry ===== */
+@media (max-width: 600px) {
+  .rs-telemetry { padding: 22px !important; }
+  .rs-telemetry .rs-tel-counter { font-size: 30px !important; }
+  .rs-telemetry .rs-tel-row {
+    grid-template-columns: 54px 46px 1fr !important;
+    font-size: 10.5px !important;
+    gap: 8px !important;
+  }
+}
+
+/* ===== Architecture diagram (HSM Gateway extras) ===== */
+@media (max-width: 800px) {
+  .rs-diagram-nodes {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .rs-diagram-split {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .rs-arch-wrap {
+    padding: 32px 22px !important;
+  }
+}
+
+/* ===== HSM root callout (flex row → column on small) ===== */
+@media (max-width: 700px) {
+  .rs-hsm-root {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+}
+
+/* ===== Button rows ===== */
+@media (max-width: 480px) {
+  .rs-btn-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .rs-btn-row .btn {
+    justify-content: center !important;
+  }
+}
+
+/* ===== Crypto function tables ===== */
+@media (max-width: 600px) {
+  .rs-crypto-table td {
+    padding: 14px 18px !important;
+    font-size: 12.5px !important;
+  }
+  .rs-crypto-table tr td:first-child {
+    width: 120px !important;
+  }
+}
+
+/* ===== PB Library callout ===== */
+@media (max-width: 800px) {
+  .rs-pblib {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 32px !important;
+  }
+}
+
+/* ===== Breadcrumb / back bar on solution pages ===== */
+@media (max-width: 600px) {
+  .rs-breadcrumb {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .rs-breadcrumb > div:last-child {
+    font-size: 10px !important;
+    gap: 10px !important;
+  }
+}
+
+/* ===== Solution hero stat card right column ===== */
+@media (max-width: 600px) {
+  .rs-sol-statcard {
+    padding: 24px !important;
+  }
+}
+
+/* ===== Pillars (2x2 → 1col on mobile) ===== */
+@media (max-width: 760px) {
+  .rs-pillars > div {
+    padding: 28px !important;
+  }
+}
+
+/* ===== Compliance / integrations side-by-side ===== */
+@media (max-width: 760px) {
+  .rs-compl-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .rs-compl-grid > div {
+    padding: 28px !important;
+  }
+}
+
+/* ===== Solution bottom big stats (4 cols) ===== */
+@media (max-width: 900px) {
+  .rs-sol-bigstats { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+  .rs-sol-bigstats > div:nth-child(odd) { border-left: none !important; padding-left: 0 !important; }
+  .rs-sol-bigstats > div { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px !important; }
+  .rs-sol-bigstats > div:nth-child(-n+2) { border-top: none; padding-top: 0 !important; }
+}
+@media (max-width: 600px) {
+  .rs-sol-bigstats-wrap { padding: 40px 28px !important; }
+  .rs-sol-bigstats > div > div:first-child { font-size: 34px !important; }
+}
+
+/* ===== Solution next-step CTA (1fr 1fr → stack) ===== */
+@media (max-width: 760px) {
+  .rs-sol-next { grid-template-columns: 1fr !important; }
+}
+
+/* ===== Module cards (PlatformSection) — drop the connector ticks on mobile ===== */
+@media (max-width: 520px) {
+  .rs-platform-connectors { display: none !important; }
+}
+
+/* ===== Reduce gap on small viewports for sections that use big gaps ===== */
+@media (max-width: 900px) {
+  .rs-section-head, .rs-split { gap: 32px !important; }
+}

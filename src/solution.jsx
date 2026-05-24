@@ -241,9 +241,9 @@ function HsmGatewayExtras() {
   return (
     <React.Fragment>
       {/* Architecture */}
-      <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
+      <section className="rs-section" style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-section-head" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1.4fr',
             gap: 80,
@@ -274,7 +274,7 @@ function HsmGatewayExtras() {
             </div>
           </div>
 
-          <div style={{
+          <div className="rs-arch-wrap" style={{
             background: 'var(--navy)',
             color: '#fff',
             padding: '48px 56px',
@@ -308,7 +308,7 @@ function HsmGatewayExtras() {
 
             <div style={{ position: 'relative' }}>
               <DiagramLayer label="01 · Clientes" sub="tus apps">
-                <div style={{ display: 'flex', gap: 10 }}>
+                <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 10 }}>
                   <DiagramNode name="Core / backend" sub="servicio" />
                   <DiagramNode name="Banca web" sub="front" />
                   <DiagramNode name="Mobile / SDK" sub="PB Library" />
@@ -324,7 +324,7 @@ function HsmGatewayExtras() {
               <DiagramConnector label="HTTPS  ·  REST + JSON" />
 
               <DiagramLayer label="03 · HSM Gateway" sub="Ziglabit" accent>
-                <div style={{
+                <div className="rs-diagram-split" style={{
                   display: 'grid',
                   gridTemplateColumns: 'minmax(220px, 0.9fr) 2.2fr',
                   gap: 10,
@@ -333,7 +333,7 @@ function HsmGatewayExtras() {
                     name="Configuration Manager"
                     sub="Web GUI · config · logs"
                   />
-                  <div style={{ display: 'flex', gap: 8 }}>
+                  <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 8 }}>
                     <DiagramNode name="Worker 1" mono />
                     <DiagramNode name="Worker 2" mono />
                     <DiagramNode name="Worker N" mono />
@@ -344,7 +344,7 @@ function HsmGatewayExtras() {
               <DiagramConnector label="TCP nativo  ·  mensajería Thales" />
 
               <DiagramLayer label="04 · HSM Pool" sub="Thales" accent>
-                <div style={{ display: 'flex', gap: 10 }}>
+                <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 10 }}>
                   <DiagramNode name="payShield 10K" sub="TCP nativo" />
                   <DiagramNode name="Luna" sub="mensajería propietaria" />
                 </div>
@@ -362,7 +362,7 @@ function HsmGatewayExtras() {
               <span className="dot"></span>
               <span>Funciones criptográficas</span>
             </div>
-            <h2 style={{
+            <h2 className="rs-h2" style={{
               fontSize: 40,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -375,7 +375,7 @@ function HsmGatewayExtras() {
             </h2>
           </div>
 
-          <div style={{
+          <div className="rs-compl-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1.4fr 1fr',
             gap: 24,
@@ -408,7 +408,7 @@ function HsmGatewayExtras() {
                   textTransform: 'uppercase',
                 }}>Thales</div>
               </div>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <table className="rs-crypto-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <tbody>
                   {payShield.map((row, i) => (
                     <tr key={i} style={{ borderBottom: i < payShield.length - 1 ? '1px solid var(--line-soft)' : 'none' }}>
@@ -462,7 +462,7 @@ function HsmGatewayExtras() {
                   textTransform: 'uppercase',
                 }}>Thales</div>
               </div>
-              <table style={{ width: '100%', borderCollapse: 'collapse', flex: 1 }}>
+              <table className="rs-crypto-table" style={{ width: '100%', borderCollapse: 'collapse', flex: 1 }}>
                 <tbody>
                   {luna.map((row, i) => (
                     <tr key={i} style={{ borderBottom: i < luna.length - 1 ? '1px solid var(--line-soft)' : 'none' }}>
@@ -503,7 +503,7 @@ function HsmGatewayExtras() {
       {/* PB Library callout */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-pblib" style={{
             background: '#fff',
             border: '1px solid var(--line)',
             borderLeft: '3px solid var(--teal)',
@@ -550,7 +550,7 @@ function HsmGatewayExtras() {
       {/* Deployment options */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-section-head" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1.4fr',
             gap: 80,
@@ -580,7 +580,7 @@ function HsmGatewayExtras() {
             </div>
           </div>
 
-          <div style={{
+          <div className="rs-cards-3" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 1,
@@ -640,7 +640,7 @@ function SolutionView({ id }) {
         padding: '20px 0',
         background: 'var(--cream)',
       }}>
-        <div className="container" style={{
+        <div className="container rs-breadcrumb" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -678,7 +678,7 @@ function SolutionView({ id }) {
       </div>
 
       {/* Hero */}
-      <section style={{
+      <section className="rs-section" style={{
         background: 'var(--navy)',
         color: '#fff',
         padding: '96px 0 120px',
@@ -700,7 +700,7 @@ function SolutionView({ id }) {
         </div>
 
         <div className="container" style={{ position: 'relative' }}>
-          <div style={{
+          <div className="rs-split" style={{
             display: 'grid',
             gridTemplateColumns: '1.4fr 1fr',
             gap: 80,
@@ -711,7 +711,7 @@ function SolutionView({ id }) {
                 <span className="dot"></span>
                 <span style={{ color: 'var(--teal)' }}>{s.tag}</span>
               </div>
-              <h1 style={{
+              <h1 className="rs-h1" style={{
                 fontSize: 72,
                 lineHeight: 1.02,
                 letterSpacing: '-0.035em',
@@ -726,7 +726,7 @@ function SolutionView({ id }) {
                 maxWidth: 600,
                 textWrap: 'pretty',
               }}>{s.intro}</p>
-              <div style={{ display: 'flex', gap: 14 }}>
+              <div className="rs-btn-row" style={{ display: 'flex', gap: 14 }}>
                 <button className="btn btn-teal">
                   Solicitar diagnóstico
                   <Icon.ArrowRight size={14} />
@@ -737,7 +737,7 @@ function SolutionView({ id }) {
               </div>
             </div>
 
-            <div style={{
+            <div className="rs-sol-statcard" style={{
               border: '1px solid rgba(255,255,255,0.18)',
               padding: 32,
               borderRadius: 4,
@@ -746,7 +746,7 @@ function SolutionView({ id }) {
               <div className="mono" style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', marginBottom: 8 }}>
                 IMPACTO EN PRODUCCIÓN
               </div>
-              <div style={{
+              <div className="rs-big-accent" style={{
                 fontFamily: 'JetBrains Mono, monospace',
                 fontSize: 64,
                 fontWeight: 500,
@@ -781,9 +781,9 @@ function SolutionView({ id }) {
       </section>
 
       {/* Pillars */}
-      <section style={{ padding: '120px 0', background: 'var(--cream)' }}>
+      <section className="rs-section" style={{ padding: '120px 0', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-section-head" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1.4fr',
             gap: 80,
@@ -795,7 +795,7 @@ function SolutionView({ id }) {
                 <span className="dot"></span>
                 <span>Pilares de la solución</span>
               </div>
-              <h2 style={{
+              <h2 className="rs-h2" style={{
                 fontSize: 48,
                 lineHeight: 1.05,
                 letterSpacing: '-0.03em',
@@ -814,7 +814,7 @@ function SolutionView({ id }) {
             </div>
           </div>
 
-          <div style={{
+          <div className="rs-cards-2 rs-pillars" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
             gap: 1,
@@ -858,7 +858,7 @@ function SolutionView({ id }) {
       {/* Compliance + Integrations */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-compl-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 24,
@@ -929,13 +929,13 @@ function SolutionView({ id }) {
       {/* Stats grid */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-sol-bigstats-wrap" style={{
             background: 'var(--navy)',
             color: '#fff',
             padding: '64px 56px',
             borderRadius: 4,
           }}>
-            <div style={{
+            <div className="rs-sol-bigstats" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: 32,
@@ -965,7 +965,7 @@ function SolutionView({ id }) {
       {/* Other solution CTA */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
         <div className="container">
-          <div style={{
+          <div className="rs-sol-next" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 24,

@@ -213,6 +213,35 @@ html, body { overflow-x: clip; }
   }
 }
 
+/* ===== ISO-8583 Proxy extras ===== */
+@media (max-width: 900px) {
+  .rs-iso-split {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .rs-iso-fork {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+@media (max-width: 600px) {
+  .rs-iso-split {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== ServiceSection card (home) ===== */
+@media (max-width: 900px) {
+  .rs-service-card {
+    grid-template-columns: 1fr !important;
+  }
+  .rs-service-card > div {
+    border-right: none !important;
+  }
+  .rs-service-card > div:first-child {
+    border-bottom: 1px solid var(--line) !important;
+  }
+}
+
 /* ===== HSM root callout (flex row → column on small) ===== */
 @media (max-width: 700px) {
   .rs-hsm-root {

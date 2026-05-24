@@ -1,6 +1,9 @@
 // Top navigation + footer
 const { useState, useEffect } = React;
 
+// Toggle cuando exista zona privada / app de clientes
+const SHOW_LOGIN = false;
+
 function TopNav({ current }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -70,9 +73,11 @@ function TopNav({ current }) {
         </div>
 
         <div className="rs-nav-auth" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <a href="#login" style={{
-            color: 'var(--navy)', fontSize: 14, fontWeight: 500, textDecoration: 'none',
-          }}>Ingresar</a>
+          {SHOW_LOGIN && (
+            <a href="#login" style={{
+              color: 'var(--navy)', fontSize: 14, fontWeight: 500, textDecoration: 'none',
+            }}>Ingresar</a>
+          )}
           <button className="btn btn-primary" style={{ padding: '11px 20px', fontSize: 13 }}>
             Solicitar demo
             <Icon.ArrowRight size={14} />
@@ -161,9 +166,11 @@ function TopNav({ current }) {
           </div>
 
           <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <a href="#login" onClick={() => setMenuOpen(false)} className="btn btn-ghost" style={{ justifyContent: 'center' }}>
-              Ingresar
-            </a>
+            {SHOW_LOGIN && (
+              <a href="#login" onClick={() => setMenuOpen(false)} className="btn btn-ghost" style={{ justifyContent: 'center' }}>
+                Ingresar
+              </a>
+            )}
             <button className="btn btn-primary" style={{ justifyContent: 'center' }}>
               Solicitar demo
               <Icon.ArrowRight size={14} />
@@ -197,38 +204,22 @@ function Footer() {
         { label: 'HSM Gateway',             href: 'hsm-gateway.html' },
         { label: 'Intercambio de Archivos', href: 'intercambio-archivos.html' },
         { label: 'ATM Keygen',              href: 'atm-keygen.html' },
-        { label: 'Desarrollo seguro',       href: 'desarrollo-seguro.html' },
+        { label: 'ISO-8583 Proxy',          href: 'iso8583-proxy.html' },
         { label: 'PB Library',              href: '#' },
       ],
     },
     {
-      title: 'Plataforma',
+      title: 'Servicios',
       links: [
-        { label: 'Algiz Platform',        href: 'index.html#platform' },
-        { label: 'Centro de Operaciones', href: '#' },
-        { label: 'API Reference',         href: '#' },
-        { label: 'OpenAPI Specs',         href: '#' },
-        { label: 'Estado del servicio',   href: '#' },
+        { label: 'Desarrollo seguro', href: 'desarrollo-seguro.html' },
       ],
     },
     {
       title: 'Compañía',
       links: [
         { label: 'Acerca de', href: '#' },
-        { label: 'Carreras',  href: '#' },
         { label: 'Partners',  href: '#' },
-        { label: 'Prensa',    href: '#' },
         { label: 'Contacto',  href: '#' },
-      ],
-    },
-    {
-      title: 'Recursos',
-      links: [
-        { label: 'Documentación',     href: '#' },
-        { label: 'Casos de estudio',  href: '#' },
-        { label: 'Blog técnico',      href: '#' },
-        { label: 'Whitepapers',       href: '#' },
-        { label: 'Soporte',           href: '#' },
       ],
     },
   ];
@@ -238,7 +229,7 @@ function Footer() {
       <div className="container">
         <div className="rs-footer-grid" style={{
           display: 'grid',
-          gridTemplateColumns: '1.4fr 1fr 1fr 1fr 1fr',
+          gridTemplateColumns: '1.6fr 1fr 1fr 1fr',
           gap: 48,
           marginBottom: 80,
         }}>

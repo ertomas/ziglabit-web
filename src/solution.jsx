@@ -71,8 +71,32 @@ const SOLUTIONS = {
     ],
   },
 
+  'iso8583-proxy': {
+    tag: '04 — ISO-8583 Proxy',
+    title: 'ISO-8583 Proxy / Balancer',
+    headline: 'Un solo proxy entre tus canales y el switch — cifra, tokeniza y balancea en el camino.',
+    intro: 'Proxy transaccional que normaliza la mensajería entre tus canales (TCP nativo ISO-8583, JSON o SOAP) y tu switch o core bancario en ISO-8583. En el mismo salto ejecuta transformaciones criptográficas vía HSM y distribuye carga entre múltiples backends, con cola persistente y circuit breakers.',
+    accentBig: '3 in → 1 out',
+    accentLabel: 'TCP ISO-8583 · JSON · SOAP → ISO-8583',
+    pillars: [
+      { n: '01', t: 'Multi-protocolo de ingreso', d: 'Recibe ISO-8583 en TCP nativo, JSON o SOAP. Entrega siempre ISO-8583 al switch transaccional o core bancario. Sin reescribir el cliente, sin tocar el backend.' },
+      { n: '02', t: 'Cifra y tokeniza en vuelo', d: 'Cifrado y descifrado, tokenización y detokenización por campo vía HSM. PAN, PIN block y track2 protegidos antes de cruzar la frontera del backend.' },
+      { n: '03', t: 'Colas y balanceo', d: 'Cola de mensajes con back-pressure y persistencia. Balanceo round-robin o least-busy entre HSMs y backends, con circuit breakers automáticos por destino.' },
+      { n: '04', t: 'Alta disponibilidad', d: 'Despliegues activo-activo multi-nodo. Reintentos por trama y persistencia de mensajes en vuelo durante failover — ninguna transacción se pierde.' },
+    ],
+    compliance: ['PCI-DSS', 'PCI HSM', 'PCI PIN', 'ISO 8583:1987/93/2003', 'FIPS 140-2 L3'],
+    integrations: ['Prosa', 'E-Global', 'Visa BASE I/II', 'Mastercard MIP', 'AmEx', 'JCB', 'Tibco EMS', 'Kafka', 'IBM MQ'],
+    stats: [
+      { n: '+8 ms', l: 'Latencia añadida (p95)' },
+      { n: '4,500 tps', l: 'Throughput por nodo' },
+      { n: '3 → 1', l: 'Protocolos de ingreso → salida' },
+      { n: 'activo-activo', l: 'Topología por defecto' },
+    ],
+    hasIsoExtras: true,
+  },
+
   'desarrollo-seguro': {
-    tag: '04 — Servicio',
+    tag: 'Servicio · Ingeniería a la medida',
     title: 'Desarrollo seguro a la medida',
     headline: 'Arquitectos de seguridad embebidos en tu proyecto, no consultores de paso.',
     intro: 'Cuando los productos no cubren un caso, nuestro equipo de ingenieros senior trabaja directamente con el tuyo — desde la arquitectura hasta el despliegue — con seguridad construida desde el primer commit y acompañamiento hasta el cierre de auditoría.',
@@ -95,7 +119,7 @@ const SOLUTIONS = {
   },
 };
 
-const SOLUTION_ORDER = ['hsm-gateway', 'intercambio-archivos', 'atm-keygen', 'desarrollo-seguro'];
+const SOLUTION_ORDER = ['hsm-gateway', 'intercambio-archivos', 'atm-keygen', 'iso8583-proxy', 'desarrollo-seguro'];
 
 // =========================================================================
 // HSM Gateway — product-specific deep sections (architecture, crypto, deploy)
@@ -622,6 +646,382 @@ function HsmGatewayExtras() {
   );
 }
 
+// =========================================================================
+// ISO-8583 Proxy / Balancer — product-specific deep sections
+// =========================================================================
+
+function IsoProxyExtras() {
+  const transforms = [
+    { de: 'DE 2',  field: 'PAN',                  op: 'Tokenización · Detokenización', dir: 'in → vault' },
+    { de: 'DE 35', field: 'Track 2',              op: 'Cifrado AES-256',                dir: 'in → backend' },
+    { de: 'DE 45', field: 'Track 1',              op: 'Cifrado AES-256',                dir: 'in → backend' },
+    { de: 'DE 52', field: 'PIN block',            op: 'Traducción ZPK → BDK/DUKPT',     dir: 'translate' },
+    { de: 'DE 55', field: 'Datos EMV (ARQC)',     op: 'Validación criptograma',         dir: 'in → issuer' },
+    { de: 'DE 64', field: 'MAC',                  op: 'Verificación / generación',      dir: 'both' },
+    { de: 'DE 128',field: 'MAC extendido',        op: 'Verificación / generación',      dir: 'both' },
+  ];
+
+  const balancing = [
+    {
+      n: '01',
+      t: 'Round-robin ponderado',
+      d: 'Distribución uniforme entre HSMs o backends, con pesos por capacidad declarada. Útil cuando la flota es homogénea.',
+      tags: ['HSM pool', 'backend pool'],
+    },
+    {
+      n: '02',
+      t: 'Least-busy',
+      d: 'Cada trama va al nodo con la cola más corta. Recomendado cuando los tiempos por operación criptográfica son heterogéneos.',
+      tags: ['HSM pool'],
+    },
+    {
+      n: '03',
+      t: 'Sticky por contraparte',
+      d: 'Las tramas de una misma sesión o emisor caen siempre en el mismo nodo. Mantiene afinidad de cache y secuencia.',
+      tags: ['backend pool'],
+    },
+  ];
+
+  const queueing = [
+    { k: 'Cola persistente',      v: 'Mensajes en vuelo escritos a disco antes del ack al cliente. Ninguna trama se pierde durante failover.' },
+    { k: 'Back-pressure',         v: 'El proxy desacelera al ingreso cuando la cola del backend o HSM supera el umbral configurado.' },
+    { k: 'Circuit breaker',       v: 'Un destino con N fallos consecutivos se aísla automáticamente. Reentra cuando responde a un probe de salud.' },
+    { k: 'Reintentos idempotentes', v: 'Reenvía tramas marcadas como seguras (echo test, repeat) hasta agotar política — sin duplicar autorizaciones.' },
+  ];
+
+  return (
+    <React.Fragment>
+      {/* Architecture */}
+      <section className="rs-section" style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
+        <div className="container">
+          <div className="rs-section-head" style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1.4fr',
+            gap: 80,
+            marginBottom: 48,
+            alignItems: 'end',
+          }}>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>
+                <span className="dot"></span>
+                <span>Arquitectura</span>
+              </div>
+              <h2 style={{
+                fontSize: 44,
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                fontWeight: 600,
+                margin: 0,
+                color: 'var(--navy)',
+              }}>
+                Un proxy,<br />
+                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--navy-soft)' }}>tres protocolos de ingreso.</span>
+              </h2>
+            </div>
+            <div>
+              <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-2)', margin: 0, maxWidth: 520, textWrap: 'pretty' }}>
+                Los canales hablan en su protocolo nativo. El proxy convierte, transforma y reparte. Al switch y al core siempre les llega ISO-8583, sin importar de dónde venga la transacción.
+              </p>
+            </div>
+          </div>
+
+          <div className="rs-arch-wrap" style={{
+            background: 'var(--navy)',
+            color: '#fff',
+            padding: '48px 56px',
+            borderRadius: 4,
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {/* dot pattern */}
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)',
+              backgroundSize: '24px 24px',
+              pointerEvents: 'none',
+            }} />
+            {/* corner ticks */}
+            <div style={{ position: 'absolute', top: 12, left: 12, width: 14, height: 14, borderLeft: '1px solid var(--teal)', borderTop: '1px solid var(--teal)' }} />
+            <div style={{ position: 'absolute', top: 12, right: 12, width: 14, height: 14, borderRight: '1px solid var(--teal)', borderTop: '1px solid var(--teal)' }} />
+            <div style={{ position: 'absolute', bottom: 12, left: 12, width: 14, height: 14, borderLeft: '1px solid var(--teal)', borderBottom: '1px solid var(--teal)' }} />
+            <div style={{ position: 'absolute', bottom: 12, right: 12, width: 14, height: 14, borderRight: '1px solid var(--teal)', borderBottom: '1px solid var(--teal)' }} />
+
+            <div className="mono" style={{
+              fontSize: 11,
+              color: 'var(--teal)',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              marginBottom: 28,
+              position: 'relative',
+            }}>
+              · Flujo lógico
+            </div>
+
+            <div style={{ position: 'relative' }}>
+              <DiagramLayer label="01 · Canales de ingreso" sub="multi-protocolo">
+                <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 10 }}>
+                  <DiagramNode name="POS · ATM · switch externo" sub="TCP nativo ISO-8583" mono />
+                  <DiagramNode name="Banca digital · APIs" sub="JSON / REST" mono />
+                  <DiagramNode name="Sistemas legacy" sub="SOAP / WS" mono />
+                </div>
+              </DiagramLayer>
+
+              <DiagramConnector label="ingreso  ·  3 protocolos" />
+
+              <DiagramLayer label="02 · ISO-8583 Proxy" sub="Ziglabit" accent>
+                <div className="rs-iso-split" style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: 8,
+                }}>
+                  <DiagramNode name="Adapter" sub="parsing · normalización" />
+                  <DiagramNode name="Transform" sub="HSM · cifrado · token" />
+                  <DiagramNode name="Queue" sub="back-pressure · persist" />
+                  <DiagramNode name="Balancer" sub="round-robin · least-busy" />
+                </div>
+              </DiagramLayer>
+
+              <div className="rs-iso-fork" style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 24,
+                marginTop: 0,
+              }}>
+                <div>
+                  <DiagramConnector label="TCP nativo  ·  Thales" />
+                  <DiagramLayer label="03a · HSM Pool" sub="Thales" accent>
+                    <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 8 }}>
+                      <DiagramNode name="payShield 10K" sub="primario" />
+                      <DiagramNode name="payShield 10K" sub="secundario" />
+                    </div>
+                  </DiagramLayer>
+                </div>
+                <div>
+                  <DiagramConnector label="ISO-8583  ·  TCP" />
+                  <DiagramLayer label="03b · Switch / Core" sub="destino">
+                    <div className="rs-diagram-nodes" style={{ display: 'flex', gap: 8 }}>
+                      <DiagramNode name="Switch transaccional" sub="autorizador" />
+                      <DiagramNode name="Core bancario" sub="settlement" />
+                    </div>
+                  </DiagramLayer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Transformations table */}
+      <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
+        <div className="container">
+          <div className="rs-section-head" style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1.4fr',
+            gap: 80,
+            marginBottom: 40,
+            alignItems: 'end',
+          }}>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>
+                <span className="dot"></span>
+                <span>Transformaciones por campo</span>
+              </div>
+              <h2 style={{
+                fontSize: 40,
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                fontWeight: 600,
+                margin: 0,
+                color: 'var(--navy)',
+              }}>
+                Cada bit sensible<br />
+                pasa por el HSM.
+              </h2>
+            </div>
+            <div>
+              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-2)', margin: 0, maxWidth: 520, textWrap: 'pretty' }}>
+                Configurable por flujo: qué campos se tokenizan, cuáles se cifran simétricamente, cuáles se traducen entre zonas. La política viaja con la trama, no con el código del backend.
+              </p>
+            </div>
+          </div>
+
+          <div style={{
+            background: '#fff',
+            border: '1px solid var(--line)',
+            borderRadius: 4,
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              padding: '16px 28px',
+              background: 'var(--cream-2)',
+              borderBottom: '1px solid var(--line)',
+              display: 'grid',
+              gridTemplateColumns: '80px 1.2fr 1.6fr 1fr',
+              gap: 24,
+            }}>
+              {['DE', 'Campo', 'Operación', 'Dirección'].map(h => (
+                <div key={h} className="mono" style={{
+                  fontSize: 10.5,
+                  color: 'var(--ink-3)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontWeight: 500,
+                }}>{h}</div>
+              ))}
+            </div>
+            {transforms.map((row, i) => (
+              <div key={i} style={{
+                padding: '16px 28px',
+                borderBottom: i < transforms.length - 1 ? '1px solid var(--line-soft)' : 'none',
+                display: 'grid',
+                gridTemplateColumns: '80px 1.2fr 1.6fr 1fr',
+                gap: 24,
+                alignItems: 'center',
+              }}>
+                <div className="mono" style={{
+                  fontSize: 13,
+                  color: 'var(--teal-deep)',
+                  letterSpacing: '0.04em',
+                  fontWeight: 500,
+                }}>{row.de}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--navy)' }}>{row.field}</div>
+                <div style={{ fontSize: 13.5, color: 'var(--ink-2)' }}>{row.op}</div>
+                <div className="mono" style={{ fontSize: 11.5, color: 'var(--ink-3)', letterSpacing: '0.04em' }}>→ {row.dir}</div>
+              </div>
+            ))}
+            <div style={{
+              padding: '14px 28px',
+              background: 'var(--cream)',
+              borderTop: '1px solid var(--line)',
+              fontSize: 12,
+              color: 'var(--ink-3)',
+              lineHeight: 1.55,
+            }}>
+              ISO 8583 1987 / 1993 / 2003. Otros bitmaps personalizados se configuran por contraparte.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Balancing modes */}
+      <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>
+        <div className="container">
+          <div className="rs-section-head" style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1.4fr',
+            gap: 80,
+            marginBottom: 40,
+            alignItems: 'end',
+          }}>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>
+                <span className="dot"></span>
+                <span>Balanceo y resiliencia</span>
+              </div>
+              <h2 style={{
+                fontSize: 40,
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                fontWeight: 600,
+                margin: 0,
+                color: 'var(--navy)',
+              }}>
+                Tres estrategias.<br />
+                Configurable por pool.
+              </h2>
+            </div>
+            <div>
+              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-2)', margin: 0, maxWidth: 480, textWrap: 'pretty' }}>
+                Ninguna estrategia única encaja en todos los pools. El proxy permite mezclar — least-busy en HSMs, sticky en core — sin reiniciar.
+              </p>
+            </div>
+          </div>
+
+          <div className="rs-cards-3" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 1,
+            background: 'var(--line)',
+            border: '1px solid var(--line)',
+            marginBottom: 48,
+          }}>
+            {balancing.map(b => (
+              <div key={b.n} style={{
+                background: '#fff',
+                padding: 36,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 16,
+                minHeight: 240,
+              }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--teal-deep)', letterSpacing: '0.15em' }}>{b.n}</div>
+                <h3 style={{ fontSize: 22, fontWeight: 600, margin: 0, color: 'var(--navy)', letterSpacing: '-0.02em' }}>{b.t}</h3>
+                <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--ink-2)', margin: 0, textWrap: 'pretty', flex: 1 }}>{b.d}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  {b.tags.map(t => (
+                    <span key={t} style={{
+                      fontFamily: 'JetBrains Mono, monospace',
+                      fontSize: 10.5,
+                      padding: '6px 10px',
+                      border: '1px solid var(--line)',
+                      color: 'var(--navy)',
+                      letterSpacing: '0.05em',
+                    }}>{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Queueing primitives */}
+          <div className="rs-arch-wrap" style={{
+            background: 'var(--navy)',
+            color: '#fff',
+            padding: '40px 48px',
+            borderRadius: 4,
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)',
+              backgroundSize: '24px 24px',
+              pointerEvents: 'none',
+            }} />
+            <div className="mono" style={{
+              fontSize: 11,
+              color: 'var(--teal)',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              marginBottom: 24,
+              position: 'relative',
+            }}>
+              · Colas y resiliencia · primitivos
+            </div>
+
+            <div className="rs-cards-2" style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 24,
+              position: 'relative',
+            }}>
+              {queueing.map((q, i) => (
+                <div key={i} style={{
+                  borderLeft: '1px solid rgba(0,209,178,0.4)',
+                  paddingLeft: 20,
+                }}>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', letterSpacing: '-0.01em', marginBottom: 6 }}>{q.k}</div>
+                  <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.55, textWrap: 'pretty' }}>{q.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </React.Fragment>
+  );
+}
+
 function SolutionView({ id }) {
   const s = SOLUTIONS[id] || SOLUTIONS['hsm-gateway'];
   const orderIdx = SOLUTION_ORDER.indexOf(id);
@@ -854,6 +1254,7 @@ function SolutionView({ id }) {
 
       {/* Product-specific deep sections (HSM Gateway) */}
       {s.hasHsmExtras && <HsmGatewayExtras />}
+      {s.hasIsoExtras && <IsoProxyExtras />}
 
       {/* Compliance + Integrations */}
       <section style={{ padding: '0 0 120px', background: 'var(--cream)' }}>

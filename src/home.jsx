@@ -324,17 +324,17 @@ function SolutionsSection() {
       stat: { n: 'TR-31', l: 'Bloques de llave conformes' },
     },
     {
-      id: 'desarrollo-seguro',
-      tag: '04 — Servicio',
-      title: 'Desarrollo seguro a la medida',
-      desc: 'Equipo de arquitectos de seguridad embebido en tu proyecto cuando los productos no alcanzan. Diseño, integración nativa con HSMs y acompañamiento hasta auditoría.',
+      id: 'iso8583-proxy',
+      tag: '04 — Producto',
+      title: 'ISO-8583 Proxy / Balancer',
+      desc: 'Recibe ISO-8583 en TCP nativo, JSON o SOAP. Entrega ISO-8583 al switch o core — cifrando, tokenizando y balanceando entre HSMs y backends en el mismo salto.',
       bullets: [
-        'Modelo de amenazas y arquitectura',
-        'Integración C / Java / PKCS#11',
-        'Code review continuo y pentest',
-        'Acompañamiento PCI · ISO · SOC',
+        'TCP ISO-8583, JSON y SOAP de entrada',
+        'Cifrado / tokenización por campo vía HSM',
+        'Colas, back-pressure y circuit breakers',
+        'Activo-activo multi-nodo',
       ],
-      stat: { n: '+12 años', l: 'Experiencia promedio del equipo' },
+      stat: { n: '3 → 1', l: 'Protocolos in → ISO-8583 out' },
     },
   ];
 
@@ -361,7 +361,7 @@ function SolutionsSection() {
               margin: 0,
               color: 'var(--navy)',
             }}>
-              Tres productos y un servicio que conforman Algiz Platform.
+              Cuatro productos que conforman Algiz Platform.
             </h2>
           </div>
           <div>
@@ -373,7 +373,7 @@ function SolutionsSection() {
               maxWidth: 480,
               textWrap: 'pretty',
             }}>
-              Cada pieza resuelve un problema concreto de integración o gobierno criptográfico, y se adopta por separado. Lo único que comparten es el HSM como raíz de confianza. Cuando los productos no alcanzan, nuestro equipo se sienta junto al tuyo.
+              Cada pieza resuelve un problema concreto de integración o gobierno criptográfico, y se adopta por separado. Lo único que comparten es el HSM como raíz de confianza — las llaves nunca salen de él en claro.
             </p>
           </div>
         </div>
@@ -544,10 +544,10 @@ function SolutionsSection() {
 
 function PlatformSection() {
   const modules = [
-    { n: '01', t: 'HSM Gateway',  d: 'API criptográfica unificada sobre tus HSMs.',     tag: 'REST · JSON',   kind: 'Producto' },
-    { n: '02', t: 'SIA',          d: 'Intercambio cifrado y auditable de archivos.',     tag: 'PGP · TLS 1.3', kind: 'Producto' },
-    { n: '03', t: 'ATM Keygen',   d: 'Ciclo de vida de llaves para redes de cajeros.',   tag: 'TR-31 · DUKPT', kind: 'Producto' },
-    { n: '04', t: 'Desarrollos',  d: 'Equipo de seguridad embebido a la medida.',        tag: 'C · Java · PKCS#11', kind: 'Servicio' },
+    { n: '01', t: 'HSM Gateway',     d: 'API criptográfica unificada sobre tus HSMs.',     tag: 'REST · JSON',          kind: 'Producto' },
+    { n: '02', t: 'SIA',             d: 'Intercambio cifrado y auditable de archivos.',     tag: 'PGP · TLS 1.3',         kind: 'Producto' },
+    { n: '03', t: 'ATM Keygen',      d: 'Ciclo de vida de llaves para redes de cajeros.',   tag: 'TR-31 · DUKPT',         kind: 'Producto' },
+    { n: '04', t: 'ISO-8583 Proxy',  d: 'Proxy transaccional con cifrado y balanceo.',      tag: 'TCP · JSON · SOAP',     kind: 'Producto' },
   ];
 
   return (
@@ -598,7 +598,7 @@ function PlatformSection() {
               margin: '12px 0 32px',
               textWrap: 'pretty',
             }}>
-              <strong style={{ color: '#fff', fontWeight: 600 }}>HSM Gateway</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>SIA</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>ATM Keygen</strong> y nuestros <strong style={{ color: '#fff', fontWeight: 600 }}>desarrollos a medida</strong> son productos independientes — cada uno resuelve un problema concreto y se adopta por separado. Lo que los une es el HSM como raíz de confianza: todas las llaves nunca salen de él en claro, y todas las operaciones criptográficas hablan los mismos estándares.
+              <strong style={{ color: '#fff', fontWeight: 600 }}>HSM Gateway</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>SIA</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>ATM Keygen</strong> e <strong style={{ color: '#fff', fontWeight: 600 }}>ISO-8583 Proxy</strong> son cuatro productos independientes — cada uno resuelve un problema concreto y se adopta por separado. Lo que los une es el HSM como raíz de confianza: todas las llaves nunca salen de él en claro, y todas las operaciones criptográficas hablan los mismos estándares.
             </p>
             <button className="btn btn-teal">
               Conocer Algiz Platform
@@ -745,6 +745,180 @@ function PlatformSection() {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceSection() {
+  const bullets = [
+    { k: 'Arquitectura', v: 'Modelo de amenazas, separación de responsabilidades y diseño criptográfico antes del primer commit.' },
+    { k: 'Integración HSM', v: 'Cuando la API no alcanza: nativo en C, Java o PKCS#11 sobre payShield y Luna.' },
+    { k: 'Code review · pentest', v: 'Revisión continua de código y pruebas de penetración internas antes de cada release crítico.' },
+    { k: 'Cumplimiento', v: 'Acompañamiento hasta cierre de auditoría PCI, ISO 27001 o SOC — sin sorpresas externas.' },
+  ];
+
+  return (
+    <section id="service" className="rs-section" style={{
+      padding: '120px 0',
+      background: 'var(--cream-2)',
+      borderTop: '1px solid var(--line)',
+      borderBottom: '1px solid var(--line)',
+      position: 'relative',
+    }}>
+      <div className="container">
+        <div className="rs-section-head" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.4fr',
+          gap: 80,
+          marginBottom: 56,
+          alignItems: 'end',
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 20 }}>
+              <span className="dot"></span>
+              <span>Servicio profesional · Fuera de la plataforma</span>
+            </div>
+            <h2 className="rs-h2" style={{
+              fontSize: 48,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              fontWeight: 600,
+              margin: 0,
+              color: 'var(--navy)',
+            }}>
+              Cuando los productos<br />
+              <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--navy-soft)' }}>no alcanzan.</span>
+            </h2>
+          </div>
+          <div>
+            <p style={{
+              fontSize: 17,
+              lineHeight: 1.6,
+              color: 'var(--ink-2)',
+              margin: 0,
+              maxWidth: 520,
+              textWrap: 'pretty',
+            }}>
+              Algiz Platform cubre los casos comunes de banca y pagos. Para todo lo demás existe nuestro equipo de arquitectos de seguridad — embebidos en tu proyecto, no consultores de paso. Esto no es un producto: es ingeniería a la medida.
+            </p>
+          </div>
+        </div>
+
+        <a href="desarrollo-seguro.html" className="rs-service-card" style={{
+          display: 'grid',
+          gridTemplateColumns: '1.2fr 1fr',
+          gap: 0,
+          background: '#fff',
+          border: '1px solid var(--line)',
+          borderRadius: 4,
+          textDecoration: 'none',
+          color: 'inherit',
+          overflow: 'hidden',
+          transition: 'border-color 0.25s, box-shadow 0.25s',
+        }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.boxShadow = '0 20px 50px -30px rgba(0,39,77,0.25)'; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.boxShadow = 'none'; }}
+        >
+          <div style={{
+            padding: '48px 48px 48px 48px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 24,
+            borderRight: '1px solid var(--line)',
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div className="mono" style={{
+                fontSize: 11,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: 'var(--ink-3)',
+              }}>Servicio · Ingeniería a la medida</div>
+              <div style={{
+                width: 36, height: 36,
+                border: '1px solid var(--line)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--navy)',
+              }}>
+                <Icon.ArrowUpRight size={14} />
+              </div>
+            </div>
+
+            <h3 style={{
+              fontSize: 36,
+              lineHeight: 1.1,
+              letterSpacing: '-0.025em',
+              fontWeight: 600,
+              margin: 0,
+              color: 'var(--navy)',
+            }}>Desarrollo seguro a la medida</h3>
+
+            <p style={{
+              fontSize: 15.5,
+              lineHeight: 1.6,
+              color: 'var(--ink-2)',
+              margin: 0,
+              textWrap: 'pretty',
+            }}>
+              Arquitectos senior trabajando junto a tu equipo, desde el modelo de amenazas hasta el cierre de auditoría. Integración nativa con HSMs cuando el caso lo exige.
+            </p>
+
+            <div style={{
+              marginTop: 'auto',
+              paddingTop: 24,
+              borderTop: '1px solid var(--line-soft)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+            }}>
+              <div>
+                <div style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: 32,
+                  fontWeight: 500,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--navy)',
+                }}>+12 años</div>
+                <div style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 2 }}>Experiencia promedio del equipo</div>
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--navy)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                Conocer el servicio <Icon.ArrowRight size={12} />
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            padding: '48px',
+            background: 'var(--cream)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 22,
+          }}>
+            <div className="mono" style={{
+              fontSize: 10.5,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: 'var(--ink-3)',
+              marginBottom: 4,
+            }}>
+              · Qué incluye el engagement
+            </div>
+            {bullets.map((b, i) => (
+              <div key={i} style={{
+                display: 'grid',
+                gridTemplateColumns: '160px 1fr',
+                gap: 16,
+                paddingBottom: i < bullets.length - 1 ? 18 : 0,
+                borderBottom: i < bullets.length - 1 ? '1px solid var(--line-soft)' : 'none',
+              }}>
+                <div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--navy)' }}>{b.k}</div>
+                <div style={{ fontSize: 13, color: 'var(--ink-2)', lineHeight: 1.55, textWrap: 'pretty' }}>{b.v}</div>
+              </div>
+            ))}
+          </div>
+        </a>
       </div>
     </section>
   );
@@ -943,6 +1117,7 @@ function Home() {
       <SectorStrip />
       <SolutionsSection />
       <PlatformSection />
+      <ServiceSection />
       <ResultsSection />
       <CTASection />
     </div>

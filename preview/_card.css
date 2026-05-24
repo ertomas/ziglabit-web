@@ -1,0 +1,51 @@
+/* preview card baseline */
+@import url('../colors_and_type.css');
+
+html, body {
+  background: var(--bg);
+  margin: 0;
+  padding: 24px;
+  font-family: var(--font-body);
+  color: var(--fg);
+}
+.card {
+  width: 100%;
+  box-sizing: border-box;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.swatch-grid {
+  display: grid;
+  gap: 12px;
+}
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.swatch-color {
+  height: 64px;
+  border-radius: 2px;
+  border: 1px solid var(--border-soft);
+}
+.swatch-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.swatch-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg);
+}
+.swatch-hex {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ziglabit — Integración avanzada para proteger tus activos digitales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="colors_and_type.css" />
+<meta name="ext-resource-dependency" content="assets/ziglabit-light.png" data-resource-id="logoLight" />
+<meta name="ext-resource-dependency" content="assets/ziglabit-dark.png" data-resource-id="logoDark" />
+
+<template id="__bundler_thumbnail" data-bg-color="#F4F1EA">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F4F1EA" />
+    <g transform="translate(600 400)">
+      <path d="M0 -180 L0 180" stroke="#00274D" stroke-width="14" stroke-linecap="square" />
+      <path d="M0 -180 L-140 -40" stroke="#00D1B2" stroke-width="14" stroke-linecap="square" />
+      <path d="M0 -180 L140 -40" stroke="#00274D" stroke-width="14" stroke-linecap="square" />
+      <circle cx="0" cy="180" r="10" fill="#00D1B2" />
+    </g>
+  </svg>
+</template>
+<style>
+  :root {
+    --navy: #00274D;
+    --navy-2: #001a36;
+    --navy-soft: #14365e;
+    --teal: #00D1B2;
+    --teal-deep: #00b59a;
+    --cream: #F4F1EA;
+    --cream-2: #ECE7DB;
+    --white: #ffffff;
+    --ink: #0f1a2b;
+    --ink-2: #3a4a5e;
+    --ink-3: #6b7a8e;
+    --line: #d9d3c3;
+    --line-soft: #e8e3d4;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* shared utilities */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; background: var(--teal); border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(0,209,178,0.18);
+  }
+  .btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 14px 22px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--navy-2); transform: translateY(-1px); }
+  .btn-teal {
+    background: var(--teal);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .btn-teal:hover { background: var(--teal-deep); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+  }
+  .btn-ghost:hover { background: var(--navy); color: #fff; }
+  .btn-ghost-light {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .btn-ghost-light:hover { background: rgba(255,255,255,0.08); border-color: #fff; }
+
+  /* Algiz rune mark — simplified, NOT recreating the logo */
+  .rune-bg-pattern {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(0,39,77,0.08) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+
+  /* Smooth view transitions */
+  .view-enter { animation: viewIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  @keyframes viewIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+
+  ::selection { background: var(--teal); color: var(--navy); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="src/icons.jsx"></script>
+  <script type="text/babel" src="src/chrome.jsx"></script>
+  <script type="text/babel" src="src/home.jsx"></script>
+  <script type="text/babel" src="src/solution.jsx"></script>
+  <script type="text/babel">
+    function App() {
+      return (
+        <div data-screen-label="01 Home">
+          <TopNav />
+          <Home />
+          <Footer />
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

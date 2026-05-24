@@ -1,0 +1,32 @@
+# --- OS / editor cruft ---------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-*
+
+# --- Logs / env ----------------------------------------------------------
+*.log
+.env
+.env.*
+!.env.example
+
+# --- Dependencies (por si más adelante hay build) ------------------------
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# --- Outputs locales -----------------------------------------------------
+screenshots/
+scraps/
+*.pptx
+*.pdf
+
+# --- Subida raw de la plataforma Anthropic -------------------------------
+# Los logos definitivos viven en assets/. uploads/ contiene archivos
+# originales sin normalizar y bocetos descartables.
+uploads/

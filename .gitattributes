@@ -1,0 +1,26 @@
+# Normalizar line endings en archivos de texto
+* text=auto eol=lf
+
+# Forzar LF en código y configuración
+*.html   text eol=lf
+*.css    text eol=lf
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.svg    text eol=lf
+
+# Binarios — que git no intente diffearlos
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.ico    binary
+*.ttf    binary
+*.otf    binary
+*.woff   binary
+*.woff2  binary
+*.pdf    binary
+*.pptx   binary
+*.zip    binary

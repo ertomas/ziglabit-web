@@ -1,0 +1,339 @@
+/* =========================================================================
+   Ziglabit Design System — colors_and_type.css
+   Source of truth for color + type tokens.
+   ========================================================================= */
+
+/* JetBrains Mono still served from Google Fonts — no local files uploaded yet. */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Poppins — self-hosted brand font files (uploaded by team) */
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 100; font-display: swap;
+  src: url('fonts/Poppins-Thin.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 100; font-display: swap;
+  src: url('fonts/Poppins-ThinItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 200; font-display: swap;
+  src: url('fonts/Poppins-ExtraLight.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 200; font-display: swap;
+  src: url('fonts/Poppins-ExtraLightItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 300; font-display: swap;
+  src: url('fonts/Poppins-Light.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 300; font-display: swap;
+  src: url('fonts/Poppins-LightItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('fonts/Poppins-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 400; font-display: swap;
+  src: url('fonts/Poppins-Italic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap;
+  src: url('fonts/Poppins-Medium.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 500; font-display: swap;
+  src: url('fonts/Poppins-MediumItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap;
+  src: url('fonts/Poppins-SemiBold.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 600; font-display: swap;
+  src: url('fonts/Poppins-SemiBoldItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap;
+  src: url('fonts/Poppins-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 700; font-display: swap;
+  src: url('fonts/Poppins-BoldItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 800; font-display: swap;
+  src: url('fonts/Poppins-ExtraBold.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 800; font-display: swap;
+  src: url('fonts/Poppins-ExtraBoldItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 900; font-display: swap;
+  src: url('fonts/Poppins-Black.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 900; font-display: swap;
+  src: url('fonts/Poppins-BlackItalic.ttf') format('truetype'); }
+
+:root {
+  /* -------------------------------------------------------------------- */
+  /* COLOR TOKENS                                                          */
+  /* -------------------------------------------------------------------- */
+
+  /* Brand */
+  --zb-navy:        #00274D;
+  --zb-navy-2:      #001A36;
+  --zb-navy-soft:   #14365E;
+  --zb-teal:        #00D1B2;
+  --zb-teal-deep:   #00B59A;
+
+  /* Surfaces */
+  --zb-cream:       #F4F1EA;
+  --zb-cream-2:     #ECE7DB;
+  --zb-white:       #FFFFFF;
+
+  /* Lines */
+  --zb-line:        #D9D3C3;
+  --zb-line-soft:   #E8E3D4;
+
+  /* Ink (text hierarchy) */
+  --zb-ink:         #0F1A2B;
+  --zb-ink-2:       #3A4A5E;
+  --zb-ink-3:       #6B7A8E;
+
+  /* Status */
+  --zb-alert:       #FF6B5B;
+
+  /* -------------------------------------------------------------------- */
+  /* SEMANTIC COLORS                                                       */
+  /* -------------------------------------------------------------------- */
+  --bg:             var(--zb-cream);
+  --bg-alt:         var(--zb-cream-2);
+  --bg-elevated:    var(--zb-white);
+  --bg-inverse:     var(--zb-navy);
+  --bg-inverse-2:   var(--zb-navy-2);
+
+  --fg:             var(--zb-ink);
+  --fg-2:           var(--zb-ink-2);
+  --fg-muted:       var(--zb-ink-3);
+  --fg-inverse:     var(--zb-white);
+
+  --accent:         var(--zb-teal);
+  --accent-hover:   var(--zb-teal-deep);
+  --primary:        var(--zb-navy);
+  --primary-hover:  var(--zb-navy-2);
+
+  --border:         var(--zb-line);
+  --border-soft:    var(--zb-line-soft);
+  --border-inverse: rgba(255, 255, 255, 0.18);
+
+  /* -------------------------------------------------------------------- */
+  /* TYPE FAMILIES                                                         */
+  /* -------------------------------------------------------------------- */
+  --font-display:   'Poppins', system-ui, -apple-system, sans-serif;
+  --font-body:      'Poppins', system-ui, -apple-system, sans-serif;
+  --font-mono:      'JetBrains Mono', 'SFMono-Regular', 'Menlo', monospace;
+
+  /* -------------------------------------------------------------------- */
+  /* TYPE SCALE (px)                                                       */
+  /* -------------------------------------------------------------------- */
+  --fs-display-xl:  72px;     /* hero h1                                 */
+  --fs-display:     52px;     /* section h2                              */
+  --fs-display-sm:  40px;     /* sub-hero, page titles                   */
+  --fs-h3:          32px;     /* card title                              */
+  --fs-h4:          24px;     /* component title                         */
+  --fs-h5:          18px;     /* small heading / large body              */
+  --fs-body:        16px;     /* default body                            */
+  --fs-body-sm:     14px;     /* compact body / button                   */
+  --fs-caption:     13px;     /* secondary copy                          */
+  --fs-meta:        12px;     /* metadata, footer                        */
+  --fs-eyebrow:     11px;     /* mono uppercase labels                   */
+
+  /* -------------------------------------------------------------------- */
+  /* TRACKING                                                              */
+  /* -------------------------------------------------------------------- */
+  --tracking-display:  -0.035em;
+  --tracking-h2:       -0.03em;
+  --tracking-h3:       -0.025em;
+  --tracking-h4:       -0.02em;
+  --tracking-body:     0;
+  --tracking-mono:     0.15em;
+
+  /* -------------------------------------------------------------------- */
+  /* LINE HEIGHT                                                           */
+  /* -------------------------------------------------------------------- */
+  --lh-display:     1.02;
+  --lh-heading:     1.1;
+  --lh-body:        1.6;
+  --lh-tight:       1.4;
+
+  /* -------------------------------------------------------------------- */
+  /* SPACING (4px base)                                                    */
+  /* -------------------------------------------------------------------- */
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:   12px;
+  --sp-4:   16px;
+  --sp-5:   20px;
+  --sp-6:   24px;
+  --sp-7:   32px;
+  --sp-8:   40px;
+  --sp-9:   48px;
+  --sp-10:  64px;
+  --sp-11:  80px;
+  --sp-12:  120px;
+
+  /* -------------------------------------------------------------------- */
+  /* RADII (deliberately tiny)                                             */
+  /* -------------------------------------------------------------------- */
+  --radius-0:  0;
+  --radius-1:  2px;
+  --radius-2:  4px;     /* maximum used in product                       */
+
+  /* -------------------------------------------------------------------- */
+  /* MOTION                                                                */
+  /* -------------------------------------------------------------------- */
+  --ease:        cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast:    0.2s;
+  --dur-base:    0.35s;
+  --dur-slow:    0.7s;
+
+  /* -------------------------------------------------------------------- */
+  /* SHADOWS (use sparingly — prefer borders)                              */
+  /* -------------------------------------------------------------------- */
+  --shadow-dramatic: 0 30px 60px -20px rgba(0, 39, 77, 0.35);
+  --shadow-soft:     0 2px 8px rgba(0, 39, 77, 0.06);
+
+  /* -------------------------------------------------------------------- */
+  /* LAYOUT                                                                */
+  /* -------------------------------------------------------------------- */
+  --container-max:  1280px;
+  --container-pad:  32px;
+}
+
+/* ========================================================================
+   BASE
+   ======================================================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--accent); color: var(--primary); }
+
+/* ========================================================================
+   SEMANTIC TYPE STYLES
+   ======================================================================== */
+/* Headings inherit color from their surface so a navy section keeps its white
+   text without needing an inline override. Set color explicitly on the heading
+   only when you want to depart from the surface's foreground. */
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl);
+  font-weight: 600;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  color: inherit;
+  margin: 0 0 var(--sp-7);
+  text-wrap: balance;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-h2);
+  color: inherit;
+  margin: 0 0 var(--sp-6);
+  text-wrap: balance;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-h3);
+  color: inherit;
+  margin: 0 0 var(--sp-4);
+}
+h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-h4);
+  color: inherit;
+  margin: 0 0 var(--sp-3);
+}
+h5 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  color: inherit;
+  margin: 0 0 var(--sp-2);
+}
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: inherit;
+  margin: 0 0 var(--sp-4);
+  text-wrap: pretty;
+}
+small, .caption {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+}
+
+/* Eyebrow — the ubiquitous mono uppercase label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(0, 209, 178, 0.18);
+}
+
+/* Stat — big mono number */
+.stat-number {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  line-height: 1;
+}
+
+/* Code / inline mono */
+code, .mono {
+  font-family: var(--font-mono);
+}
+
+/* ========================================================================
+   BUTTONS
+   ======================================================================== */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  padding: 14px 22px;
+  border-radius: var(--radius-1);
+  border: none;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  line-height: 1;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary       { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-teal          { background: var(--accent); color: var(--primary); font-weight: 600; }
+.btn-teal:hover    { background: var(--accent-hover); }
+.btn-ghost         { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+.btn-ghost:hover   { background: var(--primary); color: #fff; }
+.btn-ghost-light   { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+.btn-ghost-light:hover { background: rgba(255,255,255,0.08); border-color: #fff; }
+
+/* ========================================================================
+   UTILITIES
+   ======================================================================== */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}

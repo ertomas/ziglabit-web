@@ -115,14 +115,17 @@ function TopNav({ current }) {
         </button>
       </div>
 
-      {/* Drawer mobile */}
-      {menuOpen && (
+      {/* Drawer mobile — renderizado vía portal al body para evitar que
+          el `overflow-x: clip` de html/body o el sticky del <nav> creen
+          un containing block que rompa el position: fixed del drawer. */}
+      {menuOpen && ReactDOM.createPortal(
         <div style={{
           position: 'fixed',
           top: 76,
           left: 0,
           right: 0,
           bottom: 0,
+          height: 'calc(100vh - 76px)',
           background: 'var(--cream)',
           zIndex: 49,
           padding: '32px 20px 40px',
@@ -179,7 +182,8 @@ function TopNav({ current }) {
           </div>
 
           <style>{`@keyframes rsDrawerIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
-        </div>
+        </div>,
+        document.body
       )}
     </nav>
   );

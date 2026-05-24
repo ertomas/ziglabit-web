@@ -3,20 +3,35 @@ const { useState, useEffect } = React;
 
 function TopNav({ current }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Cierra el menú al pasar a desktop
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 901px)');
+    const onChange = (e) => { if (e.matches) setMenuOpen(false); };
+    mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+    return () => { mq.removeEventListener ? mq.removeEventListener('change', onChange) : mq.removeListener(onChange); };
+  }, []);
+
+  // Bloquea el scroll del body cuando el menú está abierto
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   const navStyle = {
     position: 'sticky',
     top: 0,
     zIndex: 50,
-    background: scrolled ? 'rgba(244,241,234,0.92)' : 'transparent',
-    backdropFilter: scrolled ? 'saturate(140%) blur(12px)' : 'none',
-    borderBottom: scrolled ? '1px solid var(--line-soft)' : '1px solid transparent',
-    transition: 'all 0.25s ease',
+    background: scrolled || menuOpen ? 'rgba(244,241,234,0.96)' : 'transparent',
+    backdropFilter: scrolled || menuOpen ? 'saturate(140%) blur(12px)' : 'none',
+    borderBottom: scrolled || menuOpen ? '1px solid var(--line-soft)' : '1px solid transparent',
+    transition: 'background 0.25s ease, border-color 0.25s ease',
   };
 
   const links = [
@@ -38,7 +53,7 @@ function TopNav({ current }) {
           <img src={(window.__resources && window.__resources.logoLight) || "assets/ziglabit-light.png"} alt="Ziglabit" style={{ height: 28 }} />
         </a>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
+        <div className="rs-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
           {links.map(l => (
             <a key={l.href} href={l.href} style={{
               color: 'var(--navy)',
@@ -54,7 +69,7 @@ function TopNav({ current }) {
           ))}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="rs-nav-auth" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <a href="#login" style={{
             color: 'var(--navy)', fontSize: 14, fontWeight: 500, textDecoration: 'none',
           }}>Ingresar</a>
@@ -63,7 +78,109 @@ function TopNav({ current }) {
             <Icon.ArrowRight size={14} />
           </button>
         </div>
+
+        {/* Hamburguesa — visible solo en mobile vía responsive.css */}
+        <button
+          className="rs-nav-hamburger"
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={menuOpen}
+          style={{
+            background: 'transparent',
+            border: '1px solid var(--line)',
+            borderRadius: 2,
+            width: 44,
+            height: 44,
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            padding: 0,
+            color: 'var(--navy)',
+          }}
+        >
+          <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
+            {menuOpen ? (
+              <React.Fragment>
+                <path d="M3 3 L17 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+                <path d="M3 11 L17 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <path d="M2 2 H18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+                <path d="M2 7 H18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+                <path d="M2 12 H18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+              </React.Fragment>
+            )}
+          </svg>
+        </button>
       </div>
+
+      {/* Drawer mobile */}
+      {menuOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 76,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'var(--cream)',
+          zIndex: 49,
+          padding: '32px 20px 40px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          animation: 'rsDrawerIn 0.25s ease',
+          overflowY: 'auto',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {links.map(l => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  color: 'var(--navy)',
+                  textDecoration: 'none',
+                  fontSize: 22,
+                  fontWeight: 500,
+                  letterSpacing: '-0.01em',
+                  padding: '18px 0',
+                  borderBottom: '1px solid var(--line-soft)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                {l.label}
+                <Icon.ArrowRight size={16} />
+              </a>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <a href="#login" onClick={() => setMenuOpen(false)} className="btn btn-ghost" style={{ justifyContent: 'center' }}>
+              Ingresar
+            </a>
+            <button className="btn btn-primary" style={{ justifyContent: 'center' }}>
+              Solicitar demo
+              <Icon.ArrowRight size={14} />
+            </button>
+          </div>
+
+          <div className="mono" style={{
+            marginTop: 'auto',
+            paddingTop: 32,
+            fontSize: 10,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: 'var(--ink-3)',
+          }}>
+            ISO 27001 · SOC 2 · PCI-DSS L1
+          </div>
+
+          <style>{`@keyframes rsDrawerIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+        </div>
+      )}
     </nav>
   );
 }
@@ -115,7 +232,7 @@ function Footer() {
   return (
     <footer style={{ background: 'var(--navy)', color: '#fff', padding: '80px 0 32px' }}>
       <div className="container">
-        <div style={{
+        <div className="rs-footer-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1.4fr 1fr 1fr 1fr 1fr',
           gap: 48,
@@ -166,7 +283,7 @@ function Footer() {
           ))}
         </div>
 
-        <div style={{
+        <div className="rs-footer-bottom" style={{
           paddingTop: 32,
           borderTop: '1px solid rgba(255,255,255,0.12)',
           display: 'flex',

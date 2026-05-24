@@ -370,7 +370,7 @@ function ContactView() {
               maxWidth: 640,
               lineHeight: 1.6
             }}>
-              ¿Caso urgente? Escribí "URGENTE" en el asunto y atendemos en menos de 2 horas hábiles.
+              ¿Caso urgente? Escribe "URGENTE" en el asunto y atendemos en menos de 2 horas hábiles.
             </div>
             <a href={`mailto:${CONTACT.email}?subject=URGENTE%20%E2%80%94%20`} className="btn btn-primary" style={{ padding: '13px 22px', fontSize: 13 }}>
               Contactar ahora

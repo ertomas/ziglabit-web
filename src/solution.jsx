@@ -1127,10 +1127,10 @@ function SolutionView({ id }) {
                 textWrap: 'pretty',
               }}>{s.intro}</p>
               <div className="rs-btn-row" style={{ display: 'flex', gap: 14 }}>
-                <button className="btn btn-teal">
+                <a href="contacto.html" className="btn btn-teal">
                   Solicitar diagnóstico
                   <Icon.ArrowRight size={14} />
-                </button>
+                </a>
                 <button className="btn btn-ghost-light">
                   Descargar ficha técnica
                 </button>
@@ -1414,10 +1414,10 @@ function SolutionView({ id }) {
                 Hablemos de tu arquitectura, no de slides.
               </div>
               <div style={{ marginTop: 'auto', display: 'flex', gap: 12 }}>
-                <button className="btn btn-teal">
+                <a href="contacto.html" className="btn btn-teal">
                   Agendar 30 min
                   <Icon.ArrowRight size={14} />
-                </button>
+                </a>
               </div>
             </div>
           </div>

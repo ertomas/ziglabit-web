@@ -188,10 +188,10 @@ function Hero() {
           </p>
 
           <div className="rs-btn-row" style={{ display: 'flex', gap: 14, marginBottom: 56 }}>
-            <button className="btn btn-primary">
+            <a href="contacto.html" className="btn btn-primary">
               Solicitar demo
               <Icon.ArrowRight size={14} />
-            </button>
+            </a>
             <button className="btn btn-ghost">
               Ver plataforma
             </button>
@@ -1102,13 +1102,13 @@ function CTASection() {
             }}>
               Te conectamos con un arquitecto senior. Sin pitch, sin formularios eternos. Solo tu stack y dónde estamos viendo riesgo.
             </p>
-            <button className="btn btn-teal" style={{ justifyContent: 'center' }}>
+            <a href="contacto.html" className="btn btn-teal" style={{ justifyContent: 'center' }}>
               Agendar diagnóstico
               <Icon.ArrowRight size={14} />
-            </button>
-            <button className="btn btn-ghost-light" style={{ justifyContent: 'center' }}>
+            </a>
+            <a href="contacto.html" className="btn btn-ghost-light" style={{ justifyContent: 'center' }}>
               Hablar con ventas
-            </button>
+            </a>
           </div>
         </div>
       </div>

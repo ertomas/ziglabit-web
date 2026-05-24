@@ -85,10 +85,10 @@ function AKHero() {
               pantalla.
             </p>
             <div style={{ display: 'flex', gap: 14 }}>
-              <button className="btn btn-teal">
+              <a href="contacto.html" className="btn btn-teal">
                 Solicitar demo en vivo
                 <Icon.ArrowRight size={14} />
-              </button>
+              </a>
               <button className="btn btn-ghost-light">
                 Descargar ficha técnica
               </button>

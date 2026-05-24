@@ -78,10 +78,10 @@ function TopNav({ current }) {
               color: 'var(--navy)', fontSize: 14, fontWeight: 500, textDecoration: 'none',
             }}>Ingresar</a>
           )}
-          <button className="btn btn-primary" style={{ padding: '11px 20px', fontSize: 13 }}>
+          <a href="contacto.html" className="btn btn-primary" style={{ padding: '11px 20px', fontSize: 13 }}>
             Solicitar demo
             <Icon.ArrowRight size={14} />
-          </button>
+          </a>
         </div>
 
         {/* Hamburguesa — visible solo en mobile vía responsive.css */}
@@ -171,10 +171,10 @@ function TopNav({ current }) {
                 Ingresar
               </a>
             )}
-            <button className="btn btn-primary" style={{ justifyContent: 'center' }}>
+            <a href="contacto.html" className="btn btn-primary" style={{ justifyContent: 'center' }}>
               Solicitar demo
               <Icon.ArrowRight size={14} />
-            </button>
+            </a>
           </div>
 
           <div className="mono" style={{

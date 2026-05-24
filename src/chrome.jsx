@@ -219,7 +219,7 @@ function Footer() {
       links: [
         { label: 'Acerca de', href: '#' },
         { label: 'Partners',  href: '#' },
-        { label: 'Contacto',  href: '#' },
+        { label: 'Contacto',  href: 'contacto.html' },
       ],
     },
   ];

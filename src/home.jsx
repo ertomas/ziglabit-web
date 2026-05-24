@@ -207,9 +207,9 @@ function Hero() {
             maxWidth: 520
           }}>
             {[
-            { n: '99.99%', l: 'Uptime garantizado' },
-            { n: '< 47ms', l: 'Latencia p95' },
-            { n: '24/7', l: 'SOC dedicado' }].
+            { n: 'Hardware', l: 'payShield · Luna · nShield' },
+            { n: 'Seguridad', l: 'Cifrado bajo llave en hardware' },
+            { n: 'Tokens', l: 'PAN, PIN block y track2' }].
             map((s, i) =>
             <div key={i}>
                 <div style={{

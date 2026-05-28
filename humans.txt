@@ -1,0 +1,35 @@
+/* ziglabit.com — humans.txt */
+/* https://humanstxt.org/ */
+
+/* TEAM */
+Empresa: Ziglabit
+Sede: Ciudad de Panamá, Panamá
+Web: https://ziglabit.com
+Contacto: hola@ziglabit.com
+
+/* THANKS */
+A cada arquitecto, operador de switch, jefe de seguridad y equipo de
+cumplimiento que nos ha confiado integraciones donde un error cuesta
+millones. A la comunidad LATAM de banca digital y procesamiento de pagos.
+
+/* SITE */
+Última actualización: 2026-05-28
+Idiomas: Español (LATAM neutro), Inglés
+Doctype: HTML5
+IDE: Editores varios — el código se escribe a mano
+Estándares: HTML5, CSS3, ES2020+, WCAG 2.1 AA
+Componentes: Sistema propio (ver README.md del repo)
+Tipografía: Poppins, JetBrains Mono
+Paleta: Navy #00274D, Teal #00D1B2, Cream #F4F1EA
+
+                ___           _____                    _____            _____
+               /\  \         /\    \                  /\    \          /\    \
+              /::\  \        \:\____\                /::\    \        /::\____\
+             /:/\:\  \        \::/    /             /:/\:\    \      /:/\/__/
+            /::\~\:\  \       /:/    /             /:/  \:\    \    /::/  /
+           /:/\:\ \:\__\     /:/    /             /:/__/_\:\    \  /:/__/
+           \:\~\:\ \/__/     \::/    /            \:\  /\ \:\    \ \:\  \
+            \:\ \:\__\        \/____/              \:\ \:\ \:\____\ \:\  \
+             \:\ \/__/                              \:\/:/  \/____/  \:\  \
+              \:\__\                                 \::/    /        \:\__\
+               \/__/                                  \/____/          \/__/

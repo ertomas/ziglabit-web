@@ -1,0 +1,38 @@
+# Ziglabit
+
+> Ziglabit es una empresa de ciberseguridad e integración de software dirigida a banca, procesadores de pago y FinTech en LATAM. Construimos integraciones a la medida sobre HSMs, switches transaccionales y canales digitales, con arquitectos de seguridad senior embebidos en el proyecto — no consultores de paso. Oficina en Panamá; atendemos en español e inglés.
+
+El nombre combina **Zigla** (la runa vikinga *Algiz* en reverso — símbolo de protección, defensa, fuerza y progreso) con **bit** (anclaje tecnológico). El sistema entero se construye sobre una metáfora de **defensa en profundidad**.
+
+## Productos
+
+- [HSM Gateway](https://ziglabit.com/hsm-gateway.html): Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON. Elimina la necesidad de implementar C, Java o PKCS#11 en cada canal. Cifrado simétrico/asimétrico, firma digital, derivación de llaves, PIN translation.
+- [ATM Keygen](https://ziglabit.com/atm-keygen.html): Automatiza la ceremonia manual de generación de llaves para cientos de ATMs sobre Thales payShield 10k. Sobres numerados, bitácora firmada, cero material criptográfico en claro. Reduce de semanas a horas un proceso típicamente manual y propenso a error.
+- [ISO-8583 Proxy / Balancer](https://ziglabit.com/iso8583-proxy.html): Proxy transaccional entre canales y switch. Normaliza ISO-8583, JSON y SOAP; cifra vía HSM; balancea con cola persistente y circuit breakers. Decisión anti-fraude en menos de 35ms.
+- [Sistema de Intercambio de Archivos](https://ziglabit.com/intercambio-archivos.html): Transferencia cifrada y auditable entre bancos, procesadores y reguladores. Cifrado en reposo y en tránsito, trazabilidad firmada por cada movimiento, retención configurable por política.
+
+## Servicios
+
+- [Desarrollo seguro a la medida](https://ziglabit.com/desarrollo-seguro.html): Arquitectos de seguridad senior embebidos en tu proyecto, desde la arquitectura hasta el despliegue. Threat modeling, hardening, revisiones de código, integración de HSM/PKI, despliegues OWASP-aligned. No es consultoría de paso ni body shopping.
+
+## Contacto
+
+- [Contacto](https://ziglabit.com/contacto.html): Conversación directa con un arquitecto senior. Sin formularios largos ni discovery genéricos. Una sesión de 30 minutos vale más que diez auditorías.
+
+## Especialidades
+
+- Integración con HSMs **Thales payShield** (9k, 10k) y **Thales Luna**.
+- Switches transaccionales y mensajería **ISO-8583**.
+- Cifrado de canal banca/FinTech, **PKI**, gestión de llaves criptográficas.
+- Cumplimiento **PCI-DSS**, controles para banca regulada en LATAM.
+- Arquitectura de seguridad para canales digitales (web, móvil, ATM, POS).
+
+## Geografía y mercado
+
+- Oficina principal en **Panamá**.
+- Clientes en banca, procesadores de pago y FinTech a lo largo de LATAM.
+- Comunicación en **español** (LATAM neutro) e **inglés**.
+
+## Optional
+
+- [Design System](https://ziglabit.com/): el sitio público es a la vez la implementación viva del sistema visual de la marca.

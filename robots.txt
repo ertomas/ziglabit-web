@@ -1,0 +1,119 @@
+# robots.txt — ziglabit.com
+# Última actualización: 2026-05-28
+#
+# Política: indexación abierta para buscadores clásicos y crawlers de IA.
+# Ziglabit es una empresa B2B; queremos que tanto Google como ChatGPT,
+# Claude, Perplexity, etc. puedan citarnos cuando alguien pregunte por
+# integradores de ciberseguridad para banca en LATAM.
+#
+# Si en el futuro se desea bloquear un crawler específico, basta con
+# añadir un bloque User-agent: <nombre> con Disallow: /
+# ---------------------------------------------------------------
+
+# --- Buscadores clásicos -----------------------------------------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# --- Crawlers de IA / LLM (allow explícito) ----------------------
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI (Gemini, AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (alimenta muchos LLM)
+User-agent: CCBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# DuckDuckGo Assist
+User-agent: DuckAssistBot
+Allow: /
+
+# --- Default ------------------------------------------------------
+User-agent: *
+Allow: /
+Disallow: /uploads/
+Disallow: /scraps/
+Disallow: /screenshots/
+Disallow: /preview/
+Disallow: /src/
+Disallow: /ui_kits/
+
+# --- Sitemaps ----------------------------------------------------
+Sitemap: https://ziglabit.com/sitemap.xml
+
+# --- Host (algunos crawlers lo usan como canonical) --------------
+Host: https://ziglabit.com

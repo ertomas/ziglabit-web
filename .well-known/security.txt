@@ -1,0 +1,14 @@
+# Política de divulgación responsable — Ziglabit
+# https://ziglabit.com/.well-known/security.txt
+#
+# Si encontraste una vulnerabilidad en infraestructura, productos o
+# servicios operados por Ziglabit, escribinos. Respondemos en menos
+# de 72 horas hábiles. Sin litigios contra reportes hechos de buena fe.
+
+Contact: mailto:security@ziglabit.com
+Contact: https://ziglabit.com/contacto.html
+Expires: 2027-05-28T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://ziglabit.com/.well-known/security.txt
+Policy: https://ziglabit.com/contacto.html
+Hiring: https://ziglabit.com/contacto.html

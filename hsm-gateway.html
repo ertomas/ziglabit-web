@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HSM Gateway — Ziglabit</title>
-<meta name="description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." />
+<title data-i18n-es="HSM Gateway — Ziglabit" data-i18n-en="HSM Gateway — Ziglabit">HSM Gateway — Ziglabit</title>
+<meta name="description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-es="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-en="Integrate Thales payShield and Luna HSMs in minutes via a REST API with JSON messaging — no C, Java or PKCS#11." />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Ziglabit" />
 <meta property="og:url" content="https://ziglabit.com/hsm-gateway.html" />
-<meta property="og:title" content="HSM Gateway — Ziglabit" />
-<meta property="og:description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." />
+<meta property="og:title" content="HSM Gateway — Ziglabit" data-i18n-es="HSM Gateway — Ziglabit" data-i18n-en="HSM Gateway — Ziglabit" />
+<meta property="og:description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-es="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-en="Integrate Thales payShield and Luna HSMs in minutes via a REST API with JSON messaging — no C, Java or PKCS#11." />
 <meta property="og:image" content="https://ziglabit.com/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="es_ES" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="HSM Gateway — Ziglabit" />
-<meta name="twitter:description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." />
+<meta name="twitter:title" content="HSM Gateway — Ziglabit" data-i18n-es="HSM Gateway — Ziglabit" data-i18n-en="HSM Gateway — Ziglabit" />
+<meta name="twitter:description" content="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-es="Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON — sin C, Java ni PKCS#11." data-i18n-en="Integrate Thales payShield and Luna HSMs in minutes via a REST API with JSON messaging — no C, Java or PKCS#11." />
 <meta name="twitter:image" content="https://ziglabit.com/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,6 +31,48 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+<link rel="canonical" href="https://ziglabit.com/hsm-gateway.html" />
+<link rel="alternate" hreflang="es" href="https://ziglabit.com/hsm-gateway.html" />
+<link rel="alternate" hreflang="en" href="https://ziglabit.com/hsm-gateway.html?lang=en" />
+<link rel="alternate" hreflang="x-default" href="https://ziglabit.com/hsm-gateway.html" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#00274D" />
+<meta name="msapplication-config" content="browserconfig.xml" />
+<meta name="msapplication-TileColor" content="#00274D" />
+<meta name="author" content="Ziglabit" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="format-detection" content="telephone=no" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ziglabit HSM Gateway",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Linux, container",
+  "description": "Integra HSMs Thales payShield y Luna en minutos vía API REST con mensajería JSON. Sin C, Java ni PKCS#11.",
+  "url": "https://ziglabit.com/hsm-gateway.html",
+  "image": "https://ziglabit.com/og-image.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ziglabit",
+    "url": "https://ziglabit.com/"
+  },
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "USD",
+    "price": "0",
+    "priceValidUntil": "2027-12-31"
+  },
+  "featureList": [
+    "API REST con mensajería JSON",
+    "Soporte Thales payShield 9k / 10k y Thales Luna",
+    "Cifrado simétrico y asimétrico",
+    "PIN translation, derivación de llaves, firma digital",
+    "Conector único para todos los canales"
+  ]
+}
+</script>
 <meta name="ext-resource-dependency" content="assets/ziglabit-light.png" data-resource-id="logoLight" />
 <meta name="ext-resource-dependency" content="assets/ziglabit-dark.png" data-resource-id="logoDark" />
 
@@ -160,6 +202,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
   <script type="text/babel" src="src/icons.jsx"></script>
+  <script type="text/babel" src="src/i18n.jsx"></script>
   <script type="text/babel" src="src/chrome.jsx"></script>
   <script type="text/babel" src="src/solution.jsx"></script>
   <script type="text/babel">

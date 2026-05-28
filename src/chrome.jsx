@@ -7,6 +7,8 @@ const SHOW_LOGIN = false;
 function TopNav({ current }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  useLang(); // re-render on language change
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener('scroll', onScroll);
@@ -38,10 +40,10 @@ function TopNav({ current }) {
   };
 
   const links = [
-    { href: 'index.html#solutions', label: 'Soluciones' },
-    { href: 'index.html#sectors',   label: 'Sectores' },
-    { href: 'index.html#platform',  label: 'Plataforma' },
-    { href: 'index.html#company',   label: 'Compañía' },
+    { href: 'index.html#solutions', label: tr('Soluciones', 'Solutions') },
+    { href: 'index.html#sectors',   label: tr('Sectores', 'Sectors') },
+    { href: 'index.html#platform',  label: tr('Plataforma', 'Platform') },
+    { href: 'index.html#company',   label: tr('Compañía', 'Company') },
   ];
 
   return (
@@ -73,13 +75,14 @@ function TopNav({ current }) {
         </div>
 
         <div className="rs-nav-auth" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <LanguageSwitcher compact />
           {SHOW_LOGIN && (
             <a href="#login" style={{
               color: 'var(--navy)', fontSize: 14, fontWeight: 500, textDecoration: 'none',
-            }}>Ingresar</a>
+            }}>{tr('Ingresar', 'Sign in')}</a>
           )}
           <a href="contacto.html" className="btn btn-primary" style={{ padding: '11px 20px', fontSize: 13 }}>
-            Solicitar demo
+            {tr('Solicitar demo', 'Request a demo')}
             <Icon.ArrowRight size={14} />
           </a>
         </div>
@@ -88,7 +91,7 @@ function TopNav({ current }) {
         <button
           className="rs-nav-hamburger"
           onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={menuOpen ? tr('Cerrar menú', 'Close menu') : tr('Abrir menú', 'Open menu')}
           aria-expanded={menuOpen}
           style={{
             background: 'transparent',
@@ -120,9 +123,7 @@ function TopNav({ current }) {
         </button>
       </div>
 
-      {/* Drawer mobile — renderizado vía portal al body para evitar que
-          el `overflow-x: clip` de html/body o el sticky del <nav> creen
-          un containing block que rompa el position: fixed del drawer. */}
+      {/* Drawer mobile */}
       {menuOpen && ReactDOM.createPortal(
         <div style={{
           position: 'fixed',
@@ -165,14 +166,21 @@ function TopNav({ current }) {
             ))}
           </div>
 
-          <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+            <span className="mono" style={{
+              fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--ink-3)',
+            }}>{tr('Idioma', 'Language')}</span>
+            <LanguageSwitcher />
+          </div>
+
+          <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {SHOW_LOGIN && (
               <a href="#login" onClick={() => setMenuOpen(false)} className="btn btn-ghost" style={{ justifyContent: 'center' }}>
-                Ingresar
+                {tr('Ingresar', 'Sign in')}
               </a>
             )}
             <a href="contacto.html" className="btn btn-primary" style={{ justifyContent: 'center' }}>
-              Solicitar demo
+              {tr('Solicitar demo', 'Request a demo')}
               <Icon.ArrowRight size={14} />
             </a>
           </div>
@@ -197,29 +205,31 @@ function TopNav({ current }) {
 }
 
 function Footer() {
+  useLang();
+
   const cols = [
     {
-      title: 'Productos',
+      title: tr('Productos', 'Products'),
       links: [
-        { label: 'HSM Gateway',             href: 'hsm-gateway.html' },
-        { label: 'Intercambio de Archivos', href: 'intercambio-archivos.html' },
-        { label: 'ATM Keygen',              href: 'atm-keygen.html' },
-        { label: 'ISO-8583 Proxy',          href: 'iso8583-proxy.html' },
-        { label: 'PB Library',              href: '#' },
+        { label: 'HSM Gateway',                                            href: 'hsm-gateway.html' },
+        { label: tr('Intercambio de Archivos', 'File Exchange System'),    href: 'intercambio-archivos.html' },
+        { label: 'ATM Keygen',                                             href: 'atm-keygen.html' },
+        { label: 'ISO-8583 Proxy',                                         href: 'iso8583-proxy.html' },
+        { label: 'PB Library',                                             href: '#' },
       ],
     },
     {
-      title: 'Servicios',
+      title: tr('Servicios', 'Services'),
       links: [
-        { label: 'Desarrollo seguro', href: 'desarrollo-seguro.html' },
+        { label: tr('Desarrollo seguro', 'Secure development'), href: 'desarrollo-seguro.html' },
       ],
     },
     {
-      title: 'Compañía',
+      title: tr('Compañía', 'Company'),
       links: [
-        { label: 'Acerca de', href: '#' },
-        { label: 'Partners',  href: '#' },
-        { label: 'Contacto',  href: 'contacto.html' },
+        { label: tr('Acerca de', 'About'),     href: '#' },
+        { label: 'Partners',                   href: '#' },
+        { label: tr('Contacto', 'Contact'),    href: 'contacto.html' },
       ],
     },
   ];
@@ -242,10 +252,19 @@ function Footer() {
               maxWidth: 280,
               margin: '0 0 24px',
             }}>
-              Integración avanzada para proteger los activos digitales de la banca, procesadores de pago y FinTech.
+              {tr(
+                'Integración avanzada para proteger los activos digitales de la banca, procesadores de pago y FinTech.',
+                'Advanced integration to protect the digital assets of banks, payment processors and FinTech.'
+              )}
             </p>
-            <div className="mono" style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}>
+            <div className="mono" style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em', marginBottom: 20 }}>
               ISO 27001 · SOC 2 · PCI-DSS L1
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span className="mono" style={{
+                fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
+              }}>{tr('Idioma', 'Language')}</span>
+              <LanguageSwitcher dark compact />
             </div>
           </div>
 
@@ -287,12 +306,17 @@ function Footer() {
           fontSize: 12,
           color: 'rgba(255,255,255,0.55)',
         }}>
-          <div className="mono">© 2026 Ziglabit S.A. · Todos los derechos reservados.</div>
+          <div className="mono">
+            {tr(
+              '© 2026 Ziglabit S.A. · Todos los derechos reservados.',
+              '© 2026 Ziglabit S.A. · All rights reserved.'
+            )}
+          </div>
           <div style={{ display: 'flex', gap: 24 }}>
-            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacidad</a>
-            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Términos</a>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{tr('Privacidad', 'Privacy')}</a>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{tr('Términos', 'Terms')}</a>
             <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Cookies</a>
-            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Seguridad</a>
+            <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{tr('Seguridad', 'Security')}</a>
           </div>
         </div>
       </div>

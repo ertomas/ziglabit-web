@@ -4,13 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ATM Keygen — Ziglabit</title>
-<meta name="description" content="Automatiza la ceremonia TDES sobre Thales payShield 10k. Sobres Sobreflex numerados y bitácora cifrada para tu red de ATMs." />
+<meta name="description" content="Automatiza la ceremonia manual de generación de llaves para cientos de ATMs sobre Thales payShield 10k. Sobres numerados, bitácora firmada y cero material criptográfico en pantalla." />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Ziglabit" />
 <meta property="og:url" content="https://ziglabit.com/atm-keygen.html" />
 <meta property="og:title" content="ATM Keygen — Ziglabit" />
-<meta property="og:description" content="Automatiza la ceremonia TDES sobre Thales payShield 10k. Sobres Sobreflex numerados y bitácora cifrada para tu red de ATMs." />
+<meta property="og:description" content="Automatiza la ceremonia manual de generación de llaves para cientos de ATMs sobre Thales payShield 10k. Sobres numerados, bitácora firmada y cero material criptográfico en pantalla." />
 <meta property="og:image" content="https://ziglabit.com/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -18,7 +18,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ATM Keygen — Ziglabit" />
-<meta name="twitter:description" content="Automatiza la ceremonia TDES sobre Thales payShield 10k. Sobres Sobreflex numerados y bitácora cifrada para tu red de ATMs." />
+<meta name="twitter:description" content="Automatiza la ceremonia manual de generación de llaves para cientos de ATMs sobre Thales payShield 10k. Sobres numerados, bitácora firmada y cero material criptográfico en pantalla." />
 <meta name="twitter:image" content="https://ziglabit.com/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,110 +46,104 @@
   </svg>
 </template>
 <style>
+  /* Legacy aliases — many AK* components reference --navy/--teal/--cream/--ink-*  */
   :root {
-    --navy: #00274D;
-    --navy-2: #001a36;
-    --navy-soft: #14365e;
-    --teal: #00D1B2;
-    --teal-deep: #00b59a;
-    --cream: #F4F1EA;
-    --cream-2: #ECE7DB;
-    --white: #ffffff;
-    --ink: #0f1a2b;
-    --ink-2: #3a4a5e;
-    --ink-3: #6b7a8e;
-    --line: #d9d3c3;
-    --line-soft: #e8e3d4;
+    --navy: var(--zb-navy);
+    --navy-2: var(--zb-navy-2);
+    --navy-soft: var(--zb-navy-soft);
+    --teal: var(--zb-teal);
+    --teal-deep: var(--zb-teal-deep);
+    --cream: var(--zb-cream);
+    --cream-2: var(--zb-cream-2);
+    --white: var(--zb-white);
+    --ink: var(--zb-ink);
+    --ink-2: var(--zb-ink-2);
+    --ink-3: var(--zb-ink-3);
+    --line: var(--zb-line);
+    --line-soft: var(--zb-line-soft);
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-  }
-  .mono { font-family: 'JetBrains Mono', monospace; }
+  body { overflow-x: hidden; }
 
-  /* shared utilities */
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-  .eyebrow {
+  /* Dot background — used inside navy sections (hero, TUI section, audit) */
+  .dotbg {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  /* Corner ticks decoration — used around the hero spec card.
+     Four pin-stripe L's drawn on the corners; uses the inner <i /> element
+     plus ::before / ::after on it to address all four corners. */
+  .corner-ticks { position: relative; }
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: "";
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--zb-teal);
+    border-style: solid;
+    border-width: 0;
+    pointer-events: none;
+  }
+  .corner-ticks::before { top: 8px; left:  8px; border-top-width: 1px; border-left-width: 1px;  }
+  .corner-ticks::after  { top: 8px; right: 8px; border-top-width: 1px; border-right-width: 1px; }
+  .corner-ticks > i {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    font-style: normal;
+  }
+  .corner-ticks > i::before,
+  .corner-ticks > i::after {
+    content: "";
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--zb-teal);
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner-ticks > i::before { bottom: 8px; left:  8px; border-bottom-width: 1px; border-left-width: 1px;  }
+  .corner-ticks > i::after  { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+
+  /* ---------- TUI mockup styles ---------- */
+  .tui {
+    background: #001226;
+    color: #DCE6F2;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .eyebrow .dot {
-    width: 6px; height: 6px; background: var(--teal); border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(0,209,178,0.18);
-  }
-  .btn {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 14px 22px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    padding: 22px 26px;
+    border: 1px solid rgba(0, 209, 178, 0.28);
     border-radius: 2px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
   }
-  .btn-primary {
-    background: var(--navy);
-    color: #fff;
+  .tui::before {
+    /* subtle scanline */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0) 0,
+      rgba(255,255,255,0) 3px,
+      rgba(255,255,255,0.015) 3px,
+      rgba(255,255,255,0.015) 4px
+    );
+    pointer-events: none;
   }
-  .btn-primary:hover { background: var(--navy-2); transform: translateY(-1px); }
-  .btn-teal {
-    background: var(--teal);
-    color: var(--navy);
-    font-weight: 600;
-  }
-  .btn-teal:hover { background: var(--teal-deep); transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--navy);
-    border: 1px solid var(--navy);
-  }
-  .btn-ghost:hover { background: var(--navy); color: #fff; }
-  .btn-ghost-light {
-    background: transparent;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.35);
-  }
-  .btn-ghost-light:hover { background: rgba(255,255,255,0.08); border-color: #fff; }
+  .tui .teal  { color: var(--zb-teal); }
+  .tui .muted { color: rgba(255,255,255,0.45); }
+  .tui .warn  { color: #FFB85B; }
+  .tui .label { color: rgba(255,255,255,0.55); }
 
-  /* Algiz rune mark — simplified, NOT recreating the logo */
-  .rune-bg-pattern {
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(0,39,77,0.08) 1px, transparent 0);
-    background-size: 20px 20px;
-  }
-
-  /* Smooth view transitions */
+  /* View transition */
   .view-enter { animation: viewIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
   @keyframes viewIn {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
-  /* Section reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-  .reveal.on { opacity: 1; transform: translateY(0); }
-
-  ::selection { background: var(--teal); color: var(--navy); }
 </style>
 </head>
 <body>
@@ -161,13 +155,23 @@
 
   <script type="text/babel" src="src/icons.jsx"></script>
   <script type="text/babel" src="src/chrome.jsx"></script>
-  <script type="text/babel" src="src/solution.jsx"></script>
+  <script type="text/babel" src="src/atm-keygen-tui.jsx"></script>
+  <script type="text/babel" src="src/atm-keygen.jsx"></script>
+  <script type="text/babel" src="src/atm-keygen-extras.jsx"></script>
   <script type="text/babel">
     function App() {
       return (
-        <div data-screen-label="04 ATM Keygen">
+        <div data-screen-label="04 ATM Keygen" className="view-enter">
           <TopNav />
-          <SolutionView id="atm-keygen" />
+          <AKBreadcrumb />
+          <AKHero />
+          <AKProblem />
+          <AKInterface />
+          <AKFlow />
+          <AKPillars />
+          <AKEnvironment />
+          <AKAudit />
+          <AKCTA />
           <Footer />
         </div>
       );

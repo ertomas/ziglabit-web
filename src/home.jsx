@@ -314,14 +314,14 @@ function SolutionsSection() {
     id: 'atm-keygen',
     tag: '03 — Producto',
     title: 'ATM Keygen',
-    desc: 'Ciclo de vida completo de llaves criptográficas para redes de cajeros — desde la inyección inicial hasta la rotación remota, conforme a TR-31 y DUKPT.',
+    desc: 'Automatiza la ceremonia manual de generación de llaves para flotas completas de ATMs sobre Thales payShield 10k. Cero material criptográfico en pantalla, sobres numerados directo a impresora, bitácora firmada al cierre.',
     bullets: [
-    'Inyección inicial con ceremonia HSM',
-    'Rotación remota sin visita física',
-    'TPK, TMK, BDK/DUKPT, ZPK',
-    'Bitácora firmada para auditoría'],
+    'Equipo embedded air-gap · TUI sin distracciones',
+    'Autenticación dual · cero llaves o KCV en pantalla',
+    'Sobres numerados directo a impresora de matriz',
+    'Audit log SHA-256 · cierre por checklist'],
 
-    stat: { n: 'TR-31', l: 'Bloques de llave conformes' }
+    stat: { n: 'Batch', l: 'Cientos de ATMs en una ceremonia' }
   },
   {
     id: 'iso8583-proxy',
@@ -546,7 +546,7 @@ function PlatformSection() {
   const modules = [
   { n: '01', t: 'HSM Gateway', d: 'API criptográfica unificada sobre tus HSMs.', tag: 'REST · JSON', kind: 'Producto' },
   { n: '02', t: 'SIA', d: 'Intercambio cifrado y auditable de archivos.', tag: 'PGP · TLS 1.3', kind: 'Producto' },
-  { n: '03', t: 'ATM Keygen', d: 'Ciclo de vida de llaves para redes de cajeros.', tag: 'TR-31 · DUKPT', kind: 'Producto' },
+  { n: '03', t: 'ATM Keygen', d: 'Automatiza la ceremonia de generación de llaves de ATM.', tag: 'payShield 10k · batch', kind: 'Producto' },
   { n: '04', t: 'ISO-8583 Proxy', d: 'Proxy transaccional con cifrado y balanceo.', tag: 'TCP · JSON · SOAP', kind: 'Producto' }];
 
 
@@ -705,8 +705,8 @@ function PlatformSection() {
               <div className="mono" style={{ fontSize: 11, color: 'var(--teal)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 6 }}>
                 Raíz de confianza compartida
               </div>
-              <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em' }}>
-                HSM · Thales payShield 10K · Luna · Cloud HSM
+              <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em' }}>HSM · Thales payShield 10K · Luna · nShield · Cloud HSM
+
               </div>
             </div>
             <div style={{ display: 'flex', gap: 22, flexWrap: 'wrap' }}>
@@ -982,17 +982,17 @@ function ResultsSection() {
                 'API HTTP/JSON sobre HSMs payShield y Luna — sin SDKs nativos en la aplicación.',
                 'Auditoría firmada criptográficamente para cada operación.',
                 'Despliegue on-premise o cloud-native, en alta disponibilidad activo–activo.',
-                'Mejores prácticas: PCI-DSS, PCI HSM, ISO 27001, FIPS 140-2 L3.'
-                ].map(item =>
-                  <li key={item} style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 12,
-                    fontSize: 14.5,
-                    lineHeight: 1.55,
-                    color: 'var(--ink)',
-                    textWrap: 'pretty'
-                  }}>
+                'Mejores prácticas: PCI-DSS, PCI HSM, ISO 27001, FIPS 140-2 L3.'].
+                map((item) =>
+                <li key={item} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 12,
+                  fontSize: 14.5,
+                  lineHeight: 1.55,
+                  color: 'var(--ink)',
+                  textWrap: 'pretty'
+                }}>
                     <span style={{ color: 'var(--teal-deep)', flexShrink: 0, marginTop: 2 }} aria-hidden="true">
                       <Icon.Check size={14} />
                     </span>
@@ -1011,10 +1011,10 @@ function ResultsSection() {
             border: '1px solid var(--line)'
           }}>
             {[
-            { n: 'Semanas',  l: 'Tiempo de integración',           src: 'No meses · API HTTP/JSON sobre HSMs Thales' },
-            { n: 'Tokeniza', l: 'Menor superficie PCI',            src: 'PAN, PIN block y track2 protegidos antes del backend' },
-            { n: 'Cero',     l: 'Llaves criptográficas en claro',  src: 'Inyección y rotación 100% bajo HSM' },
-            { n: 'A / A',    l: 'Alta disponibilidad por defecto', src: 'Cola persistente · circuit breakers · failover' }].
+            { n: 'Semanas', l: 'Tiempo de integración', src: 'No meses · API HTTP/JSON sobre HSMs Thales' },
+            { n: 'Tokeniza', l: 'Menor superficie PCI', src: 'PAN, PIN block y track2 protegidos antes del backend' },
+            { n: 'Cero', l: 'Llaves criptográficas en claro', src: 'Inyección y rotación 100% bajo HSM' },
+            { n: 'A / A', l: 'Alta disponibilidad por defecto', src: 'Cola persistente · circuit breakers · failover' }].
             map((s, i) =>
             <div key={i} style={{
               background: '#fff',

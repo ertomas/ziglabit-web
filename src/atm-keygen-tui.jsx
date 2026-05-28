@@ -197,11 +197,11 @@ function LoginTUI() {
           <span>op.ana_______________</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <TUILabel w={140}>Credencial · A</TUILabel>
+          <TUILabel w={140}>Credencial · 1</TUILabel>
           <span className="teal">●●●●●●●●●●●●●●●●_____</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <TUILabel w={140}>Credencial · B</TUILabel>
+          <TUILabel w={140}>Credencial · 2</TUILabel>
           <span className="teal">●●●●●●●●●●●●_________</span>
         </div>
 
@@ -215,7 +215,7 @@ function LoginTUI() {
         }}>
           <span className="warn" style={{ letterSpacing: '0.18em' }}>AVISO  </span>
           Las credenciales se enmascaran por completo. En caso de error, el sistema no revela
-          cuál parte falló.
+          cuál falló.
         </div>
       </div>
     </TUIWindow>

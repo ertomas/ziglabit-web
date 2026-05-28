@@ -4,7 +4,7 @@ const { useState: useStateAK, useEffect: useEffectAK } = React;
 // ---------------------------------------------------------------------------
 // 1. Breadcrumb bar
 // ---------------------------------------------------------------------------
-function AKBreadcrumb({ onNavigate }) {
+function AKBreadcrumb() {
   return (
     <div style={{
       borderBottom: '1px solid var(--zb-line)',
@@ -16,13 +16,17 @@ function AKBreadcrumb({ onNavigate }) {
         justifyContent: 'space-between',
         alignItems: 'center',
       }}>
-        <button onClick={() => onNavigate('home')} style={{
+        <a href="index.html" style={{
           background: 'none', border: 'none', cursor: 'pointer',
-          fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8,
+          fontFamily: 'inherit', textDecoration: 'none',
+          display: 'flex', alignItems: 'center', gap: 8,
           color: 'var(--zb-ink-2)', fontSize: 13, padding: 0,
-        }}>
+        }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--zb-navy)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--zb-ink-2)'}
+        >
           <Icon.ArrowLeft size={14} /> Volver al inicio
-        </button>
+        </a>
         <div className="mono" style={{
           fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase',
           color: 'var(--zb-ink-3)', display: 'flex', gap: 16, alignItems: 'center',
@@ -79,9 +83,9 @@ function AKHero() {
               fontSize: 18, lineHeight: 1.55, color: 'rgba(255,255,255,0.78)',
               margin: '0 0 40px', maxWidth: 620, textWrap: 'pretty',
             }}>
-              ATM Keygen automatiza la ceremonia de generación de llaves TDES para redes completas de
+              ATM Keygen automatiza la ceremonia de generación de llaves TDES para flotas completas de
               ATMs sobre HSM Thales payShield 10k — imprimiendo sobres Sobreflex numerados y
-              exportando la bitácora cifrada, sin que el material criptográfico aparezca nunca en
+              exportando la bitácora firmada, sin que el material criptográfico aparezca nunca en
               pantalla.
             </p>
             <div style={{ display: 'flex', gap: 14 }}>
@@ -105,7 +109,7 @@ function AKHero() {
               fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.15em',
               textTransform: 'uppercase', marginBottom: 14,
             }}>
-              Cliente · Telered S.A.
+              Especificación de referencia
             </div>
             <div style={{
               fontFamily: 'JetBrains Mono, monospace',
@@ -113,7 +117,7 @@ function AKHero() {
               color: 'var(--zb-teal)', lineHeight: 1, marginBottom: 14,
             }}>TDES · KCV</div>
             <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.7)', marginBottom: 28 }}>
-              Generación batch sobre payShield 10k, conforme a TR-31, con KCV verificable
+              Generación batch de llaves simétricas sobre payShield 10k, con KCV verificable
               por sobre.
             </div>
 
@@ -122,11 +126,12 @@ function AKHero() {
               display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5,
             }}>
               {[
-                ['Plataforma',     'Raspberry Pi · Ubuntu Pro'],
-                ['Cifrado disco',  'LUKS (full disk)'],
+                ['Plataforma',     'Equipo embedded · Linux hardened'],
+                ['Cifrado disco',  'Full disk encryption'],
                 ['Red',            'Air-gap · sin interfaces externas'],
                 ['HSM',            'Thales payShield 10k'],
-                ['Exportación',    'CSV cifrado → USB IronKey'],
+                ['Impresora',      'Matriz de puntos · formulario continuo'],
+                ['Exportación',    'CSV'],
               ].map(([k, v]) => (
                 <div key={k} style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}>
                   <span style={{ color: 'rgba(255,255,255,0.55)' }}>{k}</span>
@@ -149,13 +154,13 @@ function AKProblem() {
     'Operadores transcriben componentes criptográficos a mano, uno a uno.',
     'Cada ATM consume minutos de atención humana sin trazabilidad firmada.',
     'Errores de transcripción se detectan tarde — o no se detectan.',
-    'La evidencia de ceremonia vive en planillas Excel y cuadernos.',
+    'La evidencia de ceremonia vive en hojas Excel y bitácoras manuales.',
   ];
   const after = [
     'El operador autentica con doble factor y deja al HSM hacer el trabajo.',
     'Cientos de ATMs se procesan en una sola ceremonia auditable.',
     'Cada llave se imprime en sobre Sobreflex numerado, sin pasar por pantalla.',
-    'La bitácora se firma con SHA-256 y se exporta cifrada a IronKey.',
+    'La bitácora se firma con SHA-256 y se exporta al USB IronKey.',
   ];
   return (
     <section style={{ padding: '120px 0', background: 'var(--zb-cream)' }}>
@@ -272,9 +277,9 @@ function AKInterface() {
               fontSize: 17, lineHeight: 1.6, color: 'rgba(255,255,255,0.78)',
               margin: 0, maxWidth: 540, textWrap: 'pretty',
             }}>
-              Sobre Raspberry Pi con Ubuntu Pro, sin red, sin ratón, sin distracciones. La interfaz
-              está pensada para que un operador siga el guion exacto de la ceremonia y no haga
-              ninguna otra cosa.
+              Sobre un equipo embedded con Linux hardened, sin red, sin ratón, sin distracciones. La
+              interfaz está pensada para que un operador siga el guion exacto de la ceremonia y no
+              haga ninguna otra cosa.
             </p>
           </div>
         </div>
@@ -309,7 +314,7 @@ function AKInterface() {
           {[
             { k: 'Cero punteros', d: 'Navegación 100% por teclado. Atajos visibles en la barra de estado.' },
             { k: 'Cero material en pantalla', d: 'Criptogramas, KCV y componentes nunca se renderizan; van directo a impresora.' },
-            { k: 'Errores sin filtración', d: 'Si una credencial falla, el sistema no indica cuál parte estuvo mal.' },
+            { k: 'Errores sin filtración', d: 'Si la autenticación falla, el sistema no indica cuál de los factores estuvo mal.' },
           ].map(x => (
             <div key={x.k} style={{ background: 'var(--zb-navy)', padding: 28 }}>
               <div className="mono" style={{
@@ -334,7 +339,7 @@ function AKFlow() {
   const steps = [
     {
       n: '01', k: 'Autenticación dual',
-      d: 'El operador ingresa Parte A + Parte B. Ambas se enmascaran. Los errores no revelan cuál falló.',
+      d: 'El operador completa una autenticación dual, con ambos factores enmascarados.',
       tag: 'login',
     },
     {
@@ -344,8 +349,8 @@ function AKFlow() {
     },
     {
       n: '03', k: 'Registro de custodios',
-      d: 'Mínimo dos custodios identificados, con autorización por tarjeta sobre el HSM.',
-      tag: 'min. 2 custodios',
+      d: 'Custodios identificados para la ceremonia, con autorización por tarjeta sobre el HSM.',
+      tag: 'custodios · HSM',
     },
     {
       n: '04', k: 'Parámetros y lista de ATMs',
@@ -354,8 +359,8 @@ function AKFlow() {
     },
     {
       n: '05', k: 'Generación batch',
-      d: 'Componentes (GC) y formación de criptogramas (FK) sobre el HSM. Indicador de progreso y reintento de fallidos.',
-      tag: 'HSM · GC · FK',
+      d: 'Generación de componentes y formación de criptogramas dentro del HSM. Indicador de progreso y reintento de fallidos.',
+      tag: 'HSM · batch',
     },
     {
       n: '06', k: 'Impresión segura',
@@ -364,7 +369,7 @@ function AKFlow() {
     },
     {
       n: '07', k: 'Exportación + cierre',
-      d: 'CSV cifrado a USB IronKey, verificado con SHA-256. Cierre sólo si el checklist está completo.',
+      d: 'CSV exportado al USB y verificado con SHA-256. Cierre sólo si el checklist está completo.',
       tag: 'IronKey · SHA-256',
     },
   ];
@@ -443,11 +448,11 @@ function AKPillars() {
   const pillars = [
     {
       n: '01', t: 'Autenticación dual con enmascaramiento',
-      d: 'Login con Parte A + Parte B, ambas enmascaradas por completo. Los mensajes de error nunca revelan cuál de las dos partes estuvo mal, eliminando el side-channel más obvio.',
+      d: 'Login con autenticación dual: dos factores independientes, ambos enmascarados por completo. Los mensajes de error nunca revelan cuál estuvo mal, eliminando el side-channel más obvio.',
     },
     {
       n: '02', t: 'Integración HSM payShield 10k',
-      d: 'Verificación de estado LMK, autorización por inserción de tarjetas de custodios, generación de componentes (GC) y formación de criptogramas (FK) — todo orquestado desde la interfaz.',
+      d: 'Verificación de estado LMK, autorización por inserción de tarjetas de custodios, generación de componentes y formación de criptogramas — todo orquestado desde la interfaz.',
     },
     {
       n: '03', t: 'Impresión sin renderizado en pantalla',
